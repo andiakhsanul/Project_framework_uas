@@ -1,0 +1,56 @@
+/* Page Login */
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+.flex-container a {
+    text-align: right;
+}
+
+.btn-custom {
+    font-size: 1.2rem;
+}
+
+/* Page Registrasi */
+.text-center {
+    text-align: center;
+}
+
+.center-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-content i {
+    color: #709085;
+}
+
+.center-content h1 {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.my-3.center-content {
+    padding-bottom: 20px;
+}
+
+.dividers:after,
+.dividers:before {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: #eee;
+}
+
+.btnr-custom {
+    font-size: 1.2rem;
+}

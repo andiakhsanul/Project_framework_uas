@@ -14,5 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.index.login', [
+        'title' => 'Login'
+    ]);
+});
+
+Route::get('/Registrasi', function () {
+    return view('pages.index.registrasi', [
+        'title' => 'Registrasi'
+    ]);
 });
