@@ -4,7 +4,6 @@
 
 @section('konten')
 
-
     @foreach ($data as $item)
         <h1>{{ $item->id }}</h1>
         <h1>{{ $item->NAMA }}</h1>
