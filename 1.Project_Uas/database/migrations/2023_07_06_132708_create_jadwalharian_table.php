@@ -14,11 +14,10 @@ class CreateJadwalHarianTable extends Migration
     public function up()
     {
         Schema::create('jadwalharian', function (Blueprint $table) {
-            $table->increments('ID');
-            $table->unsignedInteger('ID_SISWA');
-            $table->foreign('ID_SISWA')->references('ID')->on('mahasiswa');
-            $table->date('HARI');
-            $table->string('KEGIATAN');
+            $table->id()->autoIncrement();
+            $table->foreignId('mahasiswa_id')->references('id')->on('mahasiswa');
+            $table->dateTime('HARI');
+            $table->string('KEGIATAN', 30);
             $table->timestamps();
         });
     }

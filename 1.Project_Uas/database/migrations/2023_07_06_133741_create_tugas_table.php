@@ -14,15 +14,13 @@ class CreateTugasTable extends Migration
     public function up()
     {
         Schema::create('tugas', function (Blueprint $table) {
-            $table->increments('ID');
-            $table->unsignedInteger('ID_JADWALHARIAN');
-            $table->foreign('ID_JADWALHARIAN')->references('ID')->on('jadwalharian');
-            $table->unsignedInteger('ID_SISWA');
-            $table->foreign('ID_SISWA')->references('ID')->on('mahasiswa');
-            $table->string('DESK_TUGAS');
+            $table->id()->autoIncrement();
+            $table->foreignId('jadwalharian_id')->references('id')->on('jadwalharian');
+            $table->foreignId('mahasiswa_id')->references('id')->on('mahasiswa');
+            $table->string('DESK_TUGAS', 50);
             $table->dateTime('TENGGAT_WAKTU');
             $table->boolean('STATUS');
-            $table->string('CATATAN')->nullable();
+            $table->string('CATATAN', 50)->nullable();
             $table->timestamps();
         });
     }
