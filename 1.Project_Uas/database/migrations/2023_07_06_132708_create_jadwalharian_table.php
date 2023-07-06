@@ -8,24 +8,27 @@ class CreateJadwalHarianTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('jadwalharian', function (Blueprint $table) {
-            $table->increments('ID_JADWALHARIAN');
-            $table->integer('ID_SISWA');
-            $table->string('HARI', 10);
-            $table->string('KEGIATAN', 30);
+            $table->increments('ID');
+            $table->unsignedInteger('ID_SISWA');
+            $table->foreign('ID_SISWA')->references('ID')->on('mahasiswa');
+            $table->date('HARI');
+            $table->string('KEGIATAN');
             $table->timestamps();
-            $table->primary('ID_JADWALHARIAN');
-            $table->foreign('ID_SISWA')->references('ID_SISWA');
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('jadwalharian');
     }
