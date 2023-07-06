@@ -14,12 +14,11 @@ class CreatePengingatTable extends Migration
     public function up()
     {
         Schema::create('pengingat', function (Blueprint $table) {
-            $table->increments('ID');
-            $table->unsignedInteger('ID_SISWA');
-            $table->foreign('ID_SISWA')->references('ID')->on('mahasiswa');
-            $table->dateTime('TANGGAL_PENG');
-            $table->string('KETERANGAN');
-            $table->string('JUDUL_PENGINGAT');
+            $table->id()->autoIncrement();
+            $table->foreignId('mahasiswa_id')->references('id')->on('mahasiswa');
+            $table->dateTime('TANGGAL_PENGINGAT');
+            $table->string('KETERANGAN', 30);
+            $table->string('JUDUL_PENGINGAT', 20);
             $table->timestamps();
         });
     }

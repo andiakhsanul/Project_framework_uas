@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MahasiswaController;
+use App\Models\MahasiswaModels;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.index.login', [
-        'title' => 'Login'
-    ]);
-});
+Route::get('/', [MahasiswaController::class, 'getMahasiswa']);
 
 Route::get('/Registrasi', function () {
     return view('pages.index.registrasi', [
         'title' => 'Registrasi'
     ]);
+});
+
+Route::get('/login', function () {
+    //
 });
