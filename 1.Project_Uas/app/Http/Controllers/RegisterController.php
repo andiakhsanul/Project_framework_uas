@@ -20,6 +20,18 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
+        // jika ingin login tanpa password terenkripsi
+        $request->validate([
+            'NAMA' => 'required|max:225',
+            'NIS' => 'required|unique:mahasiswa',
+            'ALAMAT' => 'required|max:225|min:5',
+            'EMAIL' => 'required|max:225|min:5',
+            'PASSWORD' => 'required|max:225|min:5',
+        ]);
+
+        Mahasiswa::create($request->all());
+
+        // jika ingin login dengan password terenkripsi
         $validatedData = $request->validate([
             'NAMA' => 'required|max:225',
             'NIS' => 'required|unique:mahasiswa',
@@ -27,6 +39,9 @@ class RegisterController extends Controller
             'EMAIL' => 'required|max:225|min:5',
             'PASSWORD' => 'required|max:225|min:5',
         ]);
+        $validatedData['PASSWORD'] = Hash::make($validatedData['PASSWORD']);
+
+        Mahasiswa::create($validatedData);
 
         // Mahasiswa::create([
         //     'NAMA' => $request->name,
@@ -35,10 +50,9 @@ class RegisterController extends Controller
         //     'EMAIL' => $request->email,
         //     'PASSWORD' => $request->password,
         // ]);
-        // $request=>['PASSWORD']= bcrypt($request=>['PASSWORD']);
-        $validatedData['PASSWORD'] = Hash::make($validatedData['PASSWORD']);
+        // $request->['PASSWORD']= Hash::make($request->['PASSWORD']);
 
-        Mahasiswa::create($validatedData);
+
         // return redirect('/regitrasi')->with('success', 'Registrasi berhasil. Silakan login.');
         return redirect()->route('index')->with('success', 'Registrasi berhasil. Silakan login.');
     }
