@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
-use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
+// use App\Models\User;
 
 class RegisterController extends Controller
 {
@@ -18,7 +20,7 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'NAMA' => 'required|max:225',
             'NIS' => 'required|unique:mahasiswa',
             'ALAMAT' => 'required|max:225|min:5',
@@ -33,8 +35,10 @@ class RegisterController extends Controller
         //     'EMAIL' => $request->email,
         //     'PASSWORD' => $request->password,
         // ]);
+        // $request=>['PASSWORD']= bcrypt($request=>['PASSWORD']);
+        $validatedData['PASSWORD'] = Hash::make($validatedData['PASSWORD']);
 
-        Mahasiswa::create($request->all());
+        Mahasiswa::create($validatedData);
         // return redirect('/regitrasi')->with('success', 'Registrasi berhasil. Silakan login.');
         return redirect()->route('index')->with('success', 'Registrasi berhasil. Silakan login.');
     }
