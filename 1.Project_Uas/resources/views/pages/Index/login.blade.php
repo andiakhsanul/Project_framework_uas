@@ -3,6 +3,9 @@
 @section('login')
     <section class="vh-100">
         <div class="container py-5 h-100">
+            @if (Session::has('success'))
+                <p class="alert alert-info">{{ Session::get('success') }}</p>
+            @endif
             <div class="px-5 ms-xl-4">
                 <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style="color: #709085;"></i>
                 <span class="h1 fw-bold mb-0">StudyBuddy</span>
@@ -41,7 +44,7 @@
 
                         <div class="flex-container">
                             <p>Belum Memiliki Akun?</p>
-                            <p><a href="/Registrasi" class="link-info">Daftar Akun</a></p>
+                            <p><a href="{{ route('registerForms') }}" class="link-info">Daftar Akun</a></p>
                         </div>
                     </form>
                 </div>

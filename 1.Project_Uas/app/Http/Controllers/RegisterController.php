@@ -18,14 +18,24 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:225',
-            'email' => 'required|email|unique:user',
-            'password' => 'required|max:225|min:5'
+        $request->validate([
+            'NAMA' => 'required|max:225',
+            'NIS' => 'required|unique:mahasiswa',
+            'ALAMAT' => 'required|max:225|min:5',
+            'EMAIL' => 'required|max:225|min:5',
+            'PASSWORD' => 'required|max:225|min:5',
         ]);
 
-        User::create($validatedData);
+        // Mahasiswa::create([
+        //     'NAMA' => $request->name,
+        //     'NIS' => $request->nis,
+        //     'ALAMAT' => $request->alamat,
+        //     'EMAIL' => $request->email,
+        //     'PASSWORD' => $request->password,
+        // ]);
 
-        return redirect('/regitrasi')->with('success', 'Registrasi berhasil. Silakan login.');
+        Mahasiswa::create($request->all());
+        // return redirect('/regitrasi')->with('success', 'Registrasi berhasil. Silakan login.');
+        return redirect()->route('index')->with('success', 'Registrasi berhasil. Silakan login.');
     }
 }
