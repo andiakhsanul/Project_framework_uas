@@ -83,6 +83,14 @@
                                         Daftar
                                     </button>
 
+                                    <!-- Tombol back -->
+                                    <div class="text-center mt-4">
+                                        <div class="d-flex justify-content-center">
+                                            <button type="button" onclick="window.location.href='{{ route('index') }}'"
+                                                class="btn btn-primary btn-block form-control form-control-lg shadow btnr-custom">Kembali ke Login</button>
+                                        </div>
+                                    </div>
+
                                 </form>
                             </div>
                         </div>

@@ -26,6 +26,17 @@ Route::get('/', function () {
 //     ]);
 // });
 
+Route::get('/home', function () {
+    return view('pages.users.home', [
+        'title' => 'Home',
+    ]);
+})->name('home');
+
+Route::get('/notifikasi', function () {
+    return view('pages.users.notifikasi', [
+        'title' => 'Notifikasi'
+    ]);
+})->name('notifikasi');
 
 Route::get('/register/view', [RegisterController::class, 'index'])->name('registerForms');
 Route::post('/register/data', [RegisterController::class, 'store'])->name('submitRegister');
