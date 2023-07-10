@@ -33,5 +33,5 @@ class Mahasiswa extends Model
         'ID' => 'integer',
     ];
 
-    // Jika diperlukan, Anda dapat menambahkan relasi atau metode lain di sini
+
 }

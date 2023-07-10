@@ -16,14 +16,22 @@ class LoginController extends Controller
             'title' => 'login bro'
         ]);
     }
-
-
     public function authenticate(Request $request)
     {
-        $request->validate([
+        $credentials = $request->validate([
             'EMAIL' => 'required|email:dns',
             'PASSWORD' => 'required|max:225|min:5',
         ]);
-        dd('anjrtttt');
+
+        $remember = $request->filled('remember'); // Add this line to remember the user if the "Remember Me" checkbox is selected
+
+        if (Auth::guard('web')->attempt($credentials, $remember)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/home');
+        }
+
+        return redirect()->back()->withErrors([
+            'loginerror' => 'Invalid credentials, bro'
+        ])->withInput($request->except('PASSWORD')); // Add this line to keep the email input value after a failed attempt
     }
 }

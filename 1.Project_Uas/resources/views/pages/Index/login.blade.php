@@ -6,9 +6,14 @@
             @if (Session::has('success'))
                 <p class="alert alert-info">{{ Session::get('success') }}</p>
             @endif
+
+            @if (Session::has('logineror'))
+                <div class="alert alert-danger">{{ Session::get('logineror') }}</div>
+            @endif
             <div class="px-5 ms-xl-4">
                 <div class="d-flex align-items-center mb-4">
-                    <img src="images/logoTitle/logoweb.png" alt="Logo" width="55" height="55" class="mr-2" style="margin-right: 10px;">
+                    <img src="images/logoTitle/logoweb.png" alt="Logo" width="55" height="55" class="mr-2"
+                        style="margin-right: 10px;">
                     <span class="h1 fw-bold mb-0">StudyBuddy</span>
                 </div>
             </div>
@@ -46,7 +51,7 @@
                         <!-- Submit button -->
                         <button type="submit"
                             class="btn btn-primary btn-block form-control form-control-lg shadow btn-custom"
-                            onclick="window.location.href='{{ route('home') }}'">Login</button>
+                            {{-- onclick="window.location.href='{{ route('home') }}'" --}}>Login</button>
                         <div class="divider d-flex align-items-center my-4">
                             <p class="text-center fw-bold mx-3 mb-0 text-muted">Atau</p>
                         </div>
