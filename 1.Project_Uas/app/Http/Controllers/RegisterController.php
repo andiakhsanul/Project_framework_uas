@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Hash;
 
-// use App\Models\User;
-
 class RegisterController extends Controller
 {
     public function index()
@@ -18,25 +16,13 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function submitRegister(Request $request)
     {
-        // jika ingin login tanpa password terenkripsi
-        // $request->validate([
-        //     'NAMA' => 'required|max:225',
-        //     'NIS' => 'required|unique:mahasiswa',
-        //     'ALAMAT' => 'required|max:225|min:5',
-        //     'EMAIL' => 'required|max:225|min:5',
-        //     'PASSWORD' => 'required|max:225|min:5',
-        // ]);
-
-        // Mahasiswa::create($request->all());
-
-        // jika ingin login dengan password terenkripsi
         $validatedData = $request->validate([
             'NAMA' => 'required|max:225',
-            'NIM' => 'required|unique:mahasiswa',
+            'NIS' => 'required|unique:mahasiswa',
             'ALAMAT' => 'required|max:225|min:5',
-            'EMAIL' => 'required|max:225|min:5',
+            'EMAIL' => 'required|unique:mahasiswa|max:225|min:5',
             'PASSWORD' => 'required|max:225|min:5',
         ]);
         $validatedData['PASSWORD'] = Hash::make($validatedData['PASSWORD']);

@@ -34,7 +34,7 @@
                         class="img-fluid" alt="Phone image">
                 </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 border rounded shadow">
-                    <form action="{{ route('sumbitlogin') }}" method="POST">
+                    <form action="{{ route('submitLogin') }}" method="POST">
                         @csrf
                         <h3 class="fw-bold mb-3 pb-3 text-center pt-4 fs-2">Login Siswa</h3>
 

@@ -24,8 +24,9 @@
                 </li>
             </ul>
         </div>
-        <div class="col-10 main-content">
-            @include('partials.artikel')
+            <div class="col-10">
+                @yield('content')
+            </div>
         </div>
     </div>
 </div>

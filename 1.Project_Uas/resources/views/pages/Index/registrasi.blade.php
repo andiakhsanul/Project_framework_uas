@@ -2,13 +2,13 @@
 
 @section('registrasi')
     <!-- Section: Design Block -->
-    <section class="">
+    <section class="registrasi-section">
         <!-- Jumbotron -->
         <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
             <div class="container">
                 <div class="row gx-lg-5 align-items-center">
                     <div class="col-md-8 col-lg-7 col-xl-6">
-                        <div class="my-3 center-content">
+                        <div class="my-3 mx-auto center-content">
                             <div class="px-3 ms-xl-2 text-center">
                                 <i class="fas fa-crow fa-2x me-3 pt-3 mt-xl-2"></i>
                                 <h1 class="fw-bold mb-0">StudyBuddy</h1>
@@ -35,11 +35,11 @@
 
                                     <!-- NIS -->
                                     <div class="form-outline mb-4">
-                                        <label class="form-label " for="nis">NIM</label>
-                                        <input type="text" id="nis" name="NIM"
-                                            class="form-control @error('NIM') is-invalid @enderror"
-                                            value="{{ old('NIM') }}" />
-                                        @error('NIM')
+                                        <label class="form-label" for="nis">NIS</label>
+                                        <input type="text" id="nis" name="NIS"
+                                            class="form-control @error('NIS') is-invalid @enderror"
+                                            value="{{ old('NIS') }}" />
+                                        @error('NIS')
                                             <span class="bg-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -47,7 +47,7 @@
                                     <!-- Alamat -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="alamat">Alamat</label>
-                                        <textarea id="alamat" class="form-control @error('ALAMAT') is-invalid @enderror" rows="3" name="ALAMAT"> {{ old('ALAMAT') }}</textarea>
+                                        <textarea id="alamat" class="form-control @error('ALAMAT') is-invalid @enderror" rows="3" name="ALAMAT">{{ old('ALAMAT') }}</textarea>
                                         @error('ALAMAT')
                                             <span class="bg-danger">{{ $message }}</span>
                                         @enderror
@@ -74,8 +74,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="dividers d-flex align-items-center my-4">
-                                    </div>
+                                    <div class="dividers d-flex align-items-center my-4"></div>
 
                                     <!-- Submit button -->
                                     <button type="submit"
@@ -86,12 +85,11 @@
                                     <!-- Tombol back -->
                                     <div class="text-center mt-4">
                                         <div class="d-flex justify-content-center">
-                                            <button type="button" onclick="window.location.href='{{ route('index') }}'"
+                                            <a href="{{ route('index') }}"
                                                 class="btn btn-primary btn-block form-control form-control-lg shadow btnr-custom">Kembali
-                                                ke Login</button>
+                                                ke Login</a>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
