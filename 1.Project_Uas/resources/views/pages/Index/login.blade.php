@@ -7,8 +7,8 @@
                 <p class="alert alert-info">{{ Session::get('success') }}</p>
             @endif
 
-            @if (Session::has('logineror'))
-                <div class="alert alert-danger">{{ Session::get('logineror') }}</div>
+            @if (Session::has('loginError'))
+                <div class="alert alert-danger">{{ Session::get('loginError') }}</div>
             @endif
 
             @if ($errors->any())
@@ -41,15 +41,14 @@
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="email">Alamat Email</label>
-                            <input type="email" id="email" class="form-control"
-                                name="EMAIL" value="{{ old('EMAIL') }}" />
+                            <input type="email" id="email" class="form-control" name="EMAIL"
+                                value="{{ old('EMAIL') }}" />
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="password">Password</label>
-                            <input type="password" id="password"
-                                class="form-control" name="PASSWORD" />
+                            <input type="password" id="password" class="form-control" name="PASSWORD" />
                         </div>
 
                         <!-- Submit button -->

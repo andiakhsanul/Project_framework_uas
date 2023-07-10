@@ -1,6 +1,5 @@
-
-@extends('layout.appUser')
+@extends('Layout.appUser')
 
 @section('container')
-<h1>konten home</h1>
+    <h1>konten home</h1>
 @endsection
