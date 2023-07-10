@@ -25,13 +25,11 @@ class LoginController extends Controller
 
         $remember = $request->filled('remember'); // Add this line to remember the user if the "Remember Me" checkbox is selected
 
-        if (Auth::guard('web')->attempt($credentials, $remember)) {
+        if (Auth::guard()->attempt($credentials, $remember)) {
             $request->session()->regenerate();
             return redirect()->intended('/home');
+        } else {
+            return redirect()->route('/')->with('logineror', 'username or password salah');
         }
-
-        return redirect()->back()->withErrors([
-            'loginerror' => 'Invalid credentials, bro'
-        ])->withInput($request->except('PASSWORD')); // Add this line to keep the email input value after a failed attempt
     }
 }

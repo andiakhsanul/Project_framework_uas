@@ -10,6 +10,16 @@
             @if (Session::has('logineror'))
                 <div class="alert alert-danger">{{ Session::get('logineror') }}</div>
             @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="px-5 ms-xl-4">
                 <div class="d-flex align-items-center mb-4">
                     <img src="images/logoTitle/logoweb.png" alt="Logo" width="55" height="55" class="mr-2"
@@ -31,21 +41,15 @@
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="email">Alamat Email</label>
-                            <input type="email" id="email" class="form-control @error('EMAIL') is-invalid @enderror"
+                            <input type="email" id="email" class="form-control"
                                 name="EMAIL" value="{{ old('EMAIL') }}" />
-                            @error('EMAIL')
-                                <span class="bg-danger">{{ $message }}</span>
-                            @enderror
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="password">Password</label>
                             <input type="password" id="password"
-                                class="form-control @error('PASSWORD') is-invalid @enderror" name="PASSWORD" />
-                            @error('PASSWORD')
-                                <span class="bg-danger">{{ $message }}</span>
-                            @enderror
+                                class="form-control" name="PASSWORD" />
                         </div>
 
                         <!-- Submit button -->
