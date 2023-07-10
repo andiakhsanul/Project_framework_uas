@@ -19,21 +19,28 @@
                         class="img-fluid" alt="Phone image">
                 </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 border rounded shadow">
-                    <form>
+                    <form action="{{ route('sumbitlogin') }}" method="POST">
+                        @csrf
                         <h3 class="fw-bold mb-3 pb-3 text-center pt-4 fs-2">Login Siswa</h3>
 
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="form1Example13">Email : </label>
-                            <input type="email" id="form1Example13" class="form-control form-control-lg shadow-sm"
-                                placeholder="Email User" />
+                            <label class="form-label" for="email">Alamat Email</label>
+                            <input type="email" id="email" class="form-control @error('EMAIL') is-invalid @enderror"
+                                name="EMAIL" value="{{ old('EMAIL') }}" />
+                            @error('EMAIL')
+                                <span class="bg-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="form1Example23">Password : </label>
-                            <input type="password" id="form1Example23" class="form-control form-control-lg shadow-sm"
-                                placeholder="Password User" />
+                            <label class="form-label" for="password">Password</label>
+                            <input type="password" id="password"
+                                class="form-control @error('PASSWORD') is-invalid @enderror" name="PASSWORD" />
+                            @error('PASSWORD')
+                                <span class="bg-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <!-- Submit button -->

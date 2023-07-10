@@ -21,15 +21,15 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         // jika ingin login tanpa password terenkripsi
-        $request->validate([
-            'NAMA' => 'required|max:225',
-            'NIS' => 'required|unique:mahasiswa',
-            'ALAMAT' => 'required|max:225|min:5',
-            'EMAIL' => 'required|max:225|min:5',
-            'PASSWORD' => 'required|max:225|min:5',
-        ]);
+        // $request->validate([
+        //     'NAMA' => 'required|max:225',
+        //     'NIS' => 'required|unique:mahasiswa',
+        //     'ALAMAT' => 'required|max:225|min:5',
+        //     'EMAIL' => 'required|max:225|min:5',
+        //     'PASSWORD' => 'required|max:225|min:5',
+        // ]);
 
-        Mahasiswa::create($request->all());
+        // Mahasiswa::create($request->all());
 
         // jika ingin login dengan password terenkripsi
         $validatedData = $request->validate([
