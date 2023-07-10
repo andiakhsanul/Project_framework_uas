@@ -15,7 +15,7 @@ class Mahasiswa extends Model
 
     protected $fillable = [
         'NAMA',
-        'NIS',
+        'NIM',
         'ALAMAT',
         'EMAIL',
         'PASSWORD',
@@ -32,6 +32,4 @@ class Mahasiswa extends Model
     protected $casts = [
         'ID' => 'integer',
     ];
-
-
 }

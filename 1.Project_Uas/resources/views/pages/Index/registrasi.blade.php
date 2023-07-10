@@ -35,11 +35,11 @@
 
                                     <!-- NIS -->
                                     <div class="form-outline mb-4">
-                                        <label class="form-label " for="nis">Nis</label>
-                                        <input type="text" id="nis" name="NIS"
-                                            class="form-control @error('NIS') is-invalid @enderror"
-                                            value="{{ old('NIS') }}" />
-                                        @error('NIS')
+                                        <label class="form-label " for="nis">NIM</label>
+                                        <input type="text" id="nis" name="NIM"
+                                            class="form-control @error('NIM') is-invalid @enderror"
+                                            value="{{ old('NIM') }}" />
+                                        @error('NIM')
                                             <span class="bg-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -87,7 +87,8 @@
                                     <div class="text-center mt-4">
                                         <div class="d-flex justify-content-center">
                                             <button type="button" onclick="window.location.href='{{ route('index') }}'"
-                                                class="btn btn-primary btn-block form-control form-control-lg shadow btnr-custom">Kembali ke Login</button>
+                                                class="btn btn-primary btn-block form-control form-control-lg shadow btnr-custom">Kembali
+                                                ke Login</button>
                                         </div>
                                     </div>
 

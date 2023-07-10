@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 
 class LoginController extends Controller
 {
-    function index()
+    public function index()
     {
         return view('pages.Index.login', [
             'title' => 'login bro'
