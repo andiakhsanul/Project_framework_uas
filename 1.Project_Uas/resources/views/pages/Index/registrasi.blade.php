@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('Layout.app')
 
 @section('registrasi')
     <!-- Section: Design Block -->
@@ -20,35 +20,58 @@
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <div class="card">
                             <div class="card-body py-5 px-md-5">
-                                <form>
+                                <form action="{{ route('submitRegister') }}" method="POST">
+                                    @csrf
                                     <!-- Nama -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="nama">Nama</label>
-                                        <input type="text" id="nama" class="form-control" />
+                                        <input type="text" id="nama"
+                                            class="form-control @error('NAMA') is-invalid @enderror" name="NAMA"
+                                            value="{{ old('NAMA') }}" />
+                                        @error('NAMA')
+                                            <span class="bg-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <!-- NIS -->
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="nis">NIS</label>
-                                        <input type="text" id="nis" class="form-control" />
+                                        <label class="form-label " for="nis">Nis</label>
+                                        <input type="text" id="nis" name="NIS"
+                                            class="form-control @error('NIS') is-invalid @enderror"
+                                            value="{{ old('NIS') }}" />
+                                        @error('NIS')
+                                            <span class="bg-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <!-- Alamat -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="alamat">Alamat</label>
-                                        <textarea id="alamat" class="form-control" rows="3"></textarea>
+                                        <textarea id="alamat" class="form-control @error('ALAMAT') is-invalid @enderror" rows="3" name="ALAMAT"> {{ old('ALAMAT') }}</textarea>
+                                        @error('ALAMAT')
+                                            <span class="bg-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="email">Alamat Email</label>
-                                        <input type="email" id="email" class="form-control" />
+                                        <input type="email" id="email"
+                                            class="form-control @error('EMAIL') is-invalid @enderror" name="EMAIL"
+                                            value="{{ old('EMAIL') }}" />
+                                        @error('EMAIL')
+                                            <span class="bg-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <!-- Password input -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="password">Password</label>
-                                        <input type="password" id="password" class="form-control" />
+                                        <input type="password" id="password"
+                                            class="form-control @error('PASSWORD') is-invalid @enderror" name="PASSWORD" />
+                                        @error('PASSWORD')
+                                            <span class="bg-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div class="dividers d-flex align-items-center my-4">
@@ -59,6 +82,14 @@
                                         class="btn btn-primary btn-block form-control form-control-lg shadow btnr-custom">
                                         Daftar
                                     </button>
+
+                                    <!-- Tombol back -->
+                                    <div class="text-center mt-4">
+                                        <div class="d-flex justify-content-center">
+                                            <button type="button" onclick="window.location.href='{{ route('index') }}'"
+                                                class="btn btn-primary btn-block form-control form-control-lg shadow btnr-custom">Kembali ke Login</button>
+                                        </div>
+                                    </div>
 
                                 </form>
                             </div>
