@@ -15,7 +15,7 @@ class LoginController extends Controller
         ]);
     }
 
-    public function Login(Request $request)
+    public function login(Request $request)
     {
         $credentials = $request->validate([
             'EMAIL' => 'required|email:dns',
@@ -29,7 +29,7 @@ class LoginController extends Controller
         }
 
         throw ValidationException::withMessages([
-            'EMAIL' => __('auth.failed'),
+            'email' => 'Email atau password salah.',
         ]);
     }
 }
