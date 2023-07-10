@@ -26,9 +26,9 @@ Route::get('/', function () {
 //         'title' => 'Registrasi'
 //     ]);
 // });
-<<<<<<< HEAD
+// <<<<<<< HEAD
 route::post('/login/data', [LoginController::class, 'authenticate'])->name('sumbitlogin');
-=======
+// =======
 
 Route::get('/home', function () {
     return view('pages.users.home', [
@@ -41,10 +41,10 @@ Route::get('/notifikasi', function () {
         'title' => 'Notifikasi'
     ]);
 })->name('notifikasi');
-<<<<<<< Updated upstream
-=======
->>>>>>> a99626423cdfda8697831f45a51ac76fed46e5b1
->>>>>>> Stashed changes
+// <<<<<<< Updated upstream
+// =======
+// >>>>>>> a99626423cdfda8697831f45a51ac76fed46e5b1
+// >>>>>>> Stashed changes
 
 Route::get('/register/view', [RegisterController::class, 'index'])->name('registerForms');
 Route::post('/register/data', [RegisterController::class, 'store'])->name('submitRegister');
