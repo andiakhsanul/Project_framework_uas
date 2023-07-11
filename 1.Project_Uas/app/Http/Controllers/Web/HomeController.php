@@ -15,7 +15,7 @@ class HomeController extends Controller
             $user = Auth::user();
             $namaUser = Mahasiswa::where('EMAIL', $user->email)->value('NAMA');
 
-            return view('pages.home', [
+            return view('pages.users.home', [
                 'title' => 'Home',
                 'namaUser' => $namaUser
             ]);
