@@ -14,8 +14,8 @@ Route::get('/', function () {
 
 Route::post('/submitLogin', [LoginController::class, 'submitLogin'])->name('submitLogin');
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', [Web\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'mahasiswa'], function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/notifikasi', [MahasiswaController::class, 'notifikasi'])->name('notifikasi');
 });
 

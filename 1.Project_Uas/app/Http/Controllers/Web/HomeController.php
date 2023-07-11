@@ -15,12 +15,11 @@ class HomeController extends Controller
             $user = Auth::user();
             $namaUser = Mahasiswa::where('EMAIL', $user->email)->value('NAMA');
 
-            return view('pages.home', [
+            return view('pages.users.home', [
                 'title' => 'Home',
                 'namaUser' => $namaUser
             ]);
-        }
-        else {
+        } else {
             // Pengguna tidak terotentikasi, lakukan penanganan yang sesuai
             return redirect()->route('index'); // Contoh: Alihkan pengguna ke halaman login
         }
