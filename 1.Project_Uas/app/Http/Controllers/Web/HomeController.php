@@ -17,7 +17,7 @@ class HomeController extends Controller
 
             return view('pages.users.home', [
                 'title' => 'Home',
-                'namaUser' => $namaUser
+                // 'namaUser' => $namaUser
             ]);
         } else {
             // Pengguna tidak terotentikasi, lakukan penanganan yang sesuai
