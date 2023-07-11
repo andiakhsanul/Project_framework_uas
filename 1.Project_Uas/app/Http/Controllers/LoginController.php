@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use App\Models\Mahasiswa;
 
 class LoginController extends Controller
 {
@@ -15,17 +17,22 @@ class LoginController extends Controller
         ]);
     }
 
-    public function login(Request $request)
+    public function submitLogin(Request $request)
     {
         $credentials = $request->validate([
             'EMAIL' => 'required|email:dns',
             'PASSWORD' => 'required|min:5',
         ]);
 
-        if (Auth::attempt($credentials)) {
+        $user = Mahasiswa::where('EMAIL', $credentials['EMAIL'])->first();
+
+        if ($user && Hash::check($credentials['PASSWORD'], $user->PASSWORD)) {
+            Auth::login($user);
             $request->session()->regenerate();
 
-            return redirect()->intended('/home');
+            $request->session()->put('success', 'Login berhasil.');
+
+            return redirect()->intended('home');
         }
 
         throw ValidationException::withMessages([

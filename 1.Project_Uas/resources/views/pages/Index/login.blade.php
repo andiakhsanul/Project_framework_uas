@@ -3,8 +3,10 @@
 @section('login')
     <section class="vh-100">
         <div class="container py-5 h-100">
-            @if (Session::has('success'))
-                <p class="alert alert-info">{{ Session::get('success') }}</p>
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
             @endif
 
             @if (Session::has('loginError'))
