@@ -30,9 +30,7 @@ class LoginController extends Controller
             Auth::login($user);
             $request->session()->regenerate();
 
-            $request->session()->put('success', 'Login berhasil.');
-
-            return redirect()->intended('home');
+            return redirect()->route('home')->with('success', 'Login berhasil.');
         }
 
         throw ValidationException::withMessages([
@@ -40,3 +38,4 @@ class LoginController extends Controller
         ]);
     }
 }
+
