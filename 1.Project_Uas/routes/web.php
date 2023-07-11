@@ -6,16 +6,17 @@ use App\Http\Controllers\Web\MahasiswaController;
 use App\Http\Controllers\Web\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('pages.Index.login', [
-        'title' => 'Login'
-    ]);
-})->name('index');
+// Route::get('/', function () {
+//     return view('pages.Index.login', [
+//         'title' => 'Login'
+//     ]);
+// })->name('index');
 
-
+Route::get('/', [LoginController::class, 'index'])->name('index');
 
 
 Route::post('/submitLogin', [LoginController::class, 'submitLogin'])->name('submitLogin');
+
 
 Route::group(['middleware' => ['auth', 'mahasiswa']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');

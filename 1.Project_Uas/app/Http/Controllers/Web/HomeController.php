@@ -13,11 +13,12 @@ class HomeController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-            $namaUser = Mahasiswa::where('EMAIL', $user->email)->value('NAMA');
+            $namaUser = Mahasiswa::where('NAMA', $user->NAMA)->value('NAMA');
+            // echo $namaUser;
 
             return view('pages.users.home', [
                 'title' => 'Home',
-                // 'namaUser' => $namaUser
+                'namaUser' => $namaUser
             ]);
         } else {
             // Pengguna tidak terotentikasi, lakukan penanganan yang sesuai
