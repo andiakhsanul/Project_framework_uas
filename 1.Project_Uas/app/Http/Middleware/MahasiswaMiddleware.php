@@ -9,15 +9,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MahasiswaMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::guard()->guest()) {
-            return $next($request);
+            return redirect()->route('index')->with('error', 'Anda harus login sebagai mahasiswa.');
         }
+
+        $user = Auth::user();
+
+        if (!$user || !$user instanceof \App\Models\Mahasiswa) {
+            return redirect()->route('index')->with('error', 'Anda harus login sebagai mahasiswa.');
+        }
+
+        return $next($request);
     }
 }
