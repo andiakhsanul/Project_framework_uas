@@ -21,3 +21,4 @@ Route::group(['middleware' => 'mahasiswa'], function () {
 
 Route::get('/register/view', [RegisterController::class, 'index'])->name('registerForms');
 Route::post('/register/data', [RegisterController::class, 'submitRegister'])->name('submitRegister');
+// lhdcbefiwlbvhew
