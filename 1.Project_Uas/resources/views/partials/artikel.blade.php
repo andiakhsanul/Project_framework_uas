@@ -2,4 +2,4 @@
     <div class="content-art">
     @yield('container')
     </div>
-</div> --}}
+</div> --}}
