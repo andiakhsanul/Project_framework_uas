@@ -1,5 +1,5 @@
-@extends('layout.appUser')
+@extends('Layout.appUser')
 
-@section('container')
-<h1>konten Notifikasi</h1>
+@section('content')
+    <h1>konten Notifikasi</h1>
 @endsection
