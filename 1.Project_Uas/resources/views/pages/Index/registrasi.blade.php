@@ -99,5 +99,5 @@
         </div>
         <!-- Jumbotron -->
     </section>
-    <!-- Section: Design Block -->
+    <!-- Section: Design Block -->
 @endsection
