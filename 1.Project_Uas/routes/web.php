@@ -12,6 +12,8 @@ Route::get('/', function () {
     ]);
 })->name('index');
 
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::post('/submitLogin', [LoginController::class, 'submitLogin'])->name('submitLogin');
 
 Route::group(['middleware' => 'mahasiswa'], function () {

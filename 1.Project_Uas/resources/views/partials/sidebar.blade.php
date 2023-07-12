@@ -20,7 +20,7 @@
             <div style="margin-top: auto; margin-bottom: 400px;"></div>
             <ul class="nav flex-column">
                 <li class="nav-item text-center">
-                    <a class="nav-link btn btn-danger rounded ml-2" href="{{ route('index') }}">Logout</a>
+                    <a class="nav-link btn btn-danger rounded ml-2" href="{{ route('logout') }}">Logout</a>
                 </li>
             </ul>
         </div>
