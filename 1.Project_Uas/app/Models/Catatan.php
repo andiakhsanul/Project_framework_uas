@@ -9,12 +9,16 @@ class Catatan extends Model
 {
     use HasFactory;
 
-    protected $table = 'catatan'; // Ganti 'catatan' dengan nama tabel yang sesuai
+    protected $table = 'jadwalharian'; // Ganti 'catatan' dengan nama tabel yang sesuai
 
     protected $fillable = [
         'hari',
         'kegiatan',
     ];
 
-    // Tambahkan relasi atau method lainnya sesuai kebutuhan Anda
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class);
+    }
+
 }

@@ -26,4 +26,9 @@ class Mahasiswa extends Authenticatable
     protected $hidden = [
         'PASSWORD',
     ];
+
+    public function catatans()
+    {
+        return $this->hasMany(Catatan::class, 'mahasiswa_id');
+    }
 }

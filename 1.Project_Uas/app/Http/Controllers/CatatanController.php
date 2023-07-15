@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catatan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CatatanController extends Controller
@@ -15,10 +16,11 @@ class CatatanController extends Controller
             'kegiatan' => 'required|string|max:255',
         ]);
 
-        // Simpan catatan harian ke database
-        $catatan = new Catatan();
-        $catatan->hari = $validatedData['hari'];
-        $catatan->kegiatan = $validatedData['kegiatan'];
+        $catatan = Auth::user()->catatans()->create([
+            'hari' => $validatedData['hari'],
+            'kegiatan' => $validatedData['kegiatan'],
+        ]);
+
         $catatan->save();
 
         // Redirect ke halaman yang sesuai setelah menyimpan catatan

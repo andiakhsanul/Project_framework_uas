@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
@@ -11,19 +10,16 @@ class HomeController extends Controller
 {
     public function index()
     {
-        //kalau mau akses tanpa login
-        // return view('pages.users.home', [
-        //     'title' => 'Home',
-        //     'namaUser' => 'Ghandi'
-        // ]);
-
         if (Auth::check()) {
             $user = Auth::user();
             $namaUser = Mahasiswa::where('NAMA', $user->NAMA)->value('NAMA');
 
+            $jadwalharian = $user->catatans; // Retrieve the jadwalharian records associated with the user
+
             return view('pages.users.home', [
                 'title' => 'Home',
-                'namaUser' => $namaUser
+                'namaUser' => $namaUser,
+                'jadwalharian' => $jadwalharian // Pass the jadwalharian variable to the view
             ]);
         } else {
             // Pengguna tidak terotentikasi, lakukan penanganan yang sesuai
