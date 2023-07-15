@@ -20,7 +20,6 @@ class HomeController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $namaUser = Mahasiswa::where('NAMA', $user->NAMA)->value('NAMA');
-            // echo $namaUser;
 
             return view('pages.users.home', [
                 'title' => 'Home',
