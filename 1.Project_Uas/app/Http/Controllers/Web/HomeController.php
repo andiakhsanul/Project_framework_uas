@@ -11,6 +11,12 @@ class HomeController extends Controller
 {
     public function index()
     {
+        //kalau mau akses tanpa login
+        // return view('pages.users.home', [
+        //     'title' => 'Home',
+        //     'namaUser' => 'Ghandi'
+        // ]);
+
         if (Auth::check()) {
             $user = Auth::user();
             $namaUser = Mahasiswa::where('NAMA', $user->NAMA)->value('NAMA');

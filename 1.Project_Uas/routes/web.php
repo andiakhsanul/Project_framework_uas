@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Route;
 //     ]);
 // })->name('index');
 
+// Ghandi ndak bisa login aku pakek iki Route tanpa login Edit UI Login, Home
+// Route::get('/', [LoginController::class, 'index'])->name('index');
+// Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::post('/storeCatatan', [CatatanController::class, 'store'])->name('storeCatatan');
+// Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
+
+// Route::get('/register/view', [RegisterController::class, 'index'])->name('registerForms');
+
 Route::get('/', [LoginController::class, 'index'])->name('index');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -21,9 +31,11 @@ Route::post('/submitLogin', [LoginController::class, 'submitLogin'])->name('subm
 
 Route::group(['middleware' => ['auth', 'mahasiswa']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/notifikasi', [MahasiswaController::class, 'notifikasi'])->name('notifikasi');
+    Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
 });
 
+//route buat form buat catatannya
+Route::post('/storeCatatan', [CatatanController::class, 'store'])->name('storeCatatan');
 
 Route::get('/register/view', [RegisterController::class, 'index'])->name('registerForms');
 Route::post('/register/data', [RegisterController::class, 'submitRegister'])->name('submitRegister');

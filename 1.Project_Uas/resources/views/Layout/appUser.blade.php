@@ -17,19 +17,21 @@
 <body>
     @include('partials.sidebar')
 
-    <div class="container-art mt-4 ">
+    {{-- <div class="container-art mt-4 ">
         <div class="content-art">
             @yield('container')
         </div>
-    </div>
+    </div> --}}
 
     @include('partials.footer')
+
+    {{-- @yield('scripts') --}}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>
 
-    <script src="js/script.js"></script>
+    {{-- <script src="{{ asset('JS/script.js') }}"></script> --}}
 </body>
 
 </html>

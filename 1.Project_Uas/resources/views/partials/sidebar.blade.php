@@ -1,6 +1,6 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-2 sidebar bg-primary ">
+    <div class="row d-flex">
+        <div class="col-2 sidebar bg-primary flex-grow-0">
             <div class="d-flex align-items-center justify-content-center mt-3 mb-4">
                 <img src="images/logoTitle/logoweb.png" alt="Logo" width="40" height="40" class="mr-2"
                     style="margin-right: 10px;">
@@ -20,13 +20,12 @@
             <div style="margin-top: auto; margin-bottom: 400px;"></div>
             <ul class="nav flex-column">
                 <li class="nav-item text-center">
-                    <a class="nav-link btn btn-danger rounded ml-2" href="{{ route('index') }}">Logout</a>
+                    <a class="nav-link btn btn-danger rounded ml-2" href="{{ route('logout') }}">Logout</a>
                 </li>
             </ul>
         </div>
-            <div class="col-10">
-                @yield('content')
-            </div>
+        <div class="col-10 main-content flex-grow-1">
+            @yield('content')
         </div>
     </div>
 </div>
