@@ -43,17 +43,29 @@
 
 @section('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('buatCatatanButton').addEventListener('click', function() {
-                let form = document.getElementById('isiContentSection');
-                if (form.style.display === 'none'){
-                    form.style.display = 'block';
-                    document.getElementById('buatCatatanButton').innerHTML = "<i class='bx bx-minus'></i> Batal";
+        $(document).ready(function() {
+            $('#buatCatatanButton').click(function() {
+                if ($('#isiContentSection').is(':visible')){
+                    $('#buatCatatanButton').html("<i class='bx bx-plus'></i> Buat Catatan")
                 } else {
-                    form.style.display = 'none';
-                    document.getElementById('buatCatatanButton').innerHTML = "<i class='bx bx-plus'></i> Buat Catatan";
+                    $('#buatCatatanButton').html("<i class='bx bx-minus'></i> Batal")
                 }
+                
+                $('#isiContentSection').slideToggle();
             });
         });
+
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     document.getElementById('buatCatatanButton').addEventListener('click', function() {
+        //         let form = document.getElementById('isiContentSection');
+        //         if (form.style.display === 'none'){
+        //             form.style.display = 'block';
+        //             document.getElementById('buatCatatanButton').innerHTML = "<i class='bx bx-minus'></i> Batal";
+        //         } else {
+        //             form.style.display = 'none';
+        //             document.getElementById('buatCatatanButton').innerHTML = "<i class='bx bx-plus'></i> Buat Catatan";
+        //         }
+        //     });
+        // });
     </script>
 @endsection
