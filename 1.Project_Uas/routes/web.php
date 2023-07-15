@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CatatanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\RegisterController;
