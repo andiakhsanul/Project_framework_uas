@@ -14,36 +14,12 @@
                         <i class="bx bx-plus"></i> Buat Catatan
                     </button>
 
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Form Catatan Harian</h5>
-                            <form action="{{ route('storeCatatan') }}" method="POST">
-                                {{-- @csrf --}}
-
-                                <div class="mb-3">
-                                    <label for="hari" class="form-label">Hari:</label>
-                                    <input type="date" name="hari" id="hari" class="form-control" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="kegiatan" class="form-label">Kegiatan:</label>
-                                    <input type="text" name="kegiatan" id="kegiatan" class="form-control" required>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </form>
-                        </div>
-                    </div>
-
                     {{-- harusnya pakek yang ini dibawah ini yang atas contoh tampilan --}}
-                    {{-- <div id="isiContentSection" style="display: none;">
-                        @section('isiContent')
+                    <div id="isiContentSection" style="display: none;">
                             <div class="card mt-4">
                                 <div class="card-body">
                                     <h5 class="card-title">Form Catatan Harian</h5>
                                     <form action="{{ route('storeCatatan') }}" method="POST">
-                                        @csrf
-
                                         <div class="mb-3">
                                             <label for="hari" class="form-label">Hari:</label>
                                             <input type="date" name="hari" id="hari" class="form-control" required>
@@ -58,9 +34,7 @@
                                     </form>
                                 </div>
                             </div>
-                        @endsection
-                    </div> --}}
-
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,7 +45,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('buatCatatanButton').addEventListener('click', function() {
-                document.getElementById('isiContentSection').style.display = 'block';
+                let form = document.getElementById('isiContentSection');
+                if (form.style.display === 'none'){
+                    form.style.display = 'block';
+                    document.getElementById('buatCatatanButton').innerHTML = "<i class='bx bx-minus'></i> Batal";
+                } else {
+                    form.style.display = 'none';
+                    document.getElementById('buatCatatanButton').innerHTML = "<i class='bx bx-plus'></i> Buat Catatan";
+                }
             });
         });
     </script>
