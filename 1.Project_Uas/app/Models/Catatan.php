@@ -9,7 +9,7 @@ class Catatan extends Model
 {
     use HasFactory;
 
-    protected $table = 'jadwalharian'; // Ganti 'catatan' dengan nama tabel yang sesuai
+    protected $table = 'catatan';
 
     protected $fillable = [
         'hari',
@@ -21,4 +21,8 @@ class Catatan extends Model
         return $this->belongsTo(Mahasiswa::class);
     }
 
+    public function tugas()
+    {
+        return $this->hasMany(Tugas::class, 'jadwalharian_id');
+    }
 }

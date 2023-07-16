@@ -14,7 +14,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btn-success border text-white rounded {{ $title === 'notifikasi' ? 'active' : '' }}"
-                        href="{{ route('/notifikasi') }}">Notifikasi</a>
+                        href="{{ route('notifikasi') }}">Notifikasi</a>
                 </li>
             </ul>
             <div style="margin-top: auto; margin-bottom: 400px;"></div>

@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
 // Route::post('/storeCatatan', [CatatanController::class, 'store'])->name('storeCatatan');
+// Route::post('/storeTugas', [TugasController::class, 'store'])->name('storeTugas');
 // Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
 
 // Route::get('/register/view', [RegisterController::class, 'index'])->name('registerForms');
@@ -36,8 +37,9 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('/notifikasi');
 });
 
-//route buat form buat catatannya
+//route buat form buat catatan dan tugas
 Route::post('/storeCatatan', [CatatanController::class, 'store'])->name('storeCatatan');
+Route::post('/storeTugas', [TugasController::class, 'store'])->name('storeTugas');
 
 Route::get('/register/view', [RegisterController::class, 'index'])->name('registerForms');
 Route::post('/register/data', [RegisterController::class, 'submitRegister'])->name('submitRegister');

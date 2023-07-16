@@ -22,7 +22,7 @@ class HomeController extends Controller
                 'jadwalharian' => $jadwalharian // Pass the jadwalharian variable to the view
             ]);
         } else {
-            // Pengguna tidak terotentikasi, lakukan penanganan yang sesuai
+            // Pengguna tidak terotentikasi
             return redirect()->route('index'); // Contoh: Alihkan pengguna ke halaman login
         }
     }
