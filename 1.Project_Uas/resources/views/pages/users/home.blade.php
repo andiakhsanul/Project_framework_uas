@@ -37,7 +37,7 @@
                         </div>
                     </div>
 
-                    @foreach ($jadwalharian as $catatan)
+                    {{-- @foreach ($jadwalharian as $catatan)
                         <div class="col-md-6" data-catatan-id="{{ $catatan->id }}">
                             <div class="card mb-3">
                                 <div class="card-body d-flex align-items-center gap-1">
@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if ($activeFormId === $catatan->id)
+                            @if ($activeFormId == $catatan->id)
                                 <div class="card mt-4">
                                     <div class="card-body">
                                         <h5 class="card-title">Form Edit Catatan Harian</h5>
@@ -85,6 +85,54 @@
                                 </div>
                             @endif
                         </div>
+                    @endforeach --}}
+
+                    @foreach ($jadwalharian as $catatan)
+                        <div class="col-md-6" data-catatan-id="{{ $catatan->id }}">
+                            <div class="card mb-3">
+                                <div class="card-body d-flex align-items-center gap-1">
+                                    <!-- grid -->
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-text">{{ $catatan->KEGIATAN }} - {{ $catatan->HARI }}</h5>
+                                        <p class="card-title">{{ $catatan->created_at }}</p>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary btn-hover btn-edit" type="button"
+                                            data-catatan-id="{{ $catatan->id }}">
+                                            <i class="bx bx-pencil"></i>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-danger btn-hover btn-delete" type="button"
+                                            data-catatan-id="{{ $catatan->id }}">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mt-4" style="display: none;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Form Edit Catatan Harian</h5>
+                                    <form action="{{ route('updateCatatan', $catatan->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="mb-3">
+                                            <label for="hari" class="form-label">Hari:</label>
+                                            <input type="date" name="hari" id="hari" class="form-control"
+                                                value="{{ $catatan->HARI }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="kegiatan" class="form-label">Kegiatan:</label>
+                                            <input type="text" name="kegiatan" id="kegiatan" class="form-control"
+                                                value="{{ $catatan->KEGIATAN }}" required>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-danger btn-cancel-edit">Batal</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </div>
             </div>
@@ -94,6 +142,7 @@
 
 @section('scripts')
     <script>
+        // script Menampilkan Form Buat catatan
         $(document).ready(function() {
             $('#buatCatatanButton').click(function() {
                 let btn = $('#buatCatatanButton');
@@ -114,6 +163,7 @@
             });
         });
 
+        // script untuk menghapus catatan
         $(document).ready(function() {
             $(document).on('click', '.btn-delete', function() {
                 let catatanId = $(this).data('catatan-id');
@@ -140,24 +190,33 @@
                 }
             });
         });
-        $(document).ready(function() {
-            $(document).on('click', '.btn-edit', function() {
-                let catatanId = $(this).data('catatan-id');
-                let form = $('.col-md-6[data-catatan-id="' + catatanId + '"]').find('.card.mt-4');
 
-                // Menampilkan form edit dan menyembunyikan tombol edit
-                form.show();
-                $(this).hide();
+        // script untuk edit catatan
+        $(document).ready(function() {
+            // Menampilkan form buat catatan
+            $('#buatCatatanButton').click(function() {
+                let form = $('#isiContentSection');
+                form.slideToggle();
+                form.find('form')[0].reset(); // Mengosongkan input form
             });
 
-            $(document).on('click', '.btn-cancel-edit', function() {
-                let form = $(this).closest('.card.mt-4');
-                let catatanId = form.parent().data('catatan-id');
-                let btnEdit = $('.col-md-6[data-catatan-id="' + catatanId + '"]').find('.btn-edit');
+            // Menampilkan form edit catatan
+            $(document).on('click', '.btn-edit', function() {
+                let card = $(this).closest('.card');
+                let form = card.next('.card');
 
-                // Menyembunyikan form edit dan menampilkan tombol edit
+                // Menyembunyikan card dan menampilkan form
+                card.hide();
+                form.show();
+            });
+
+            // Menyembunyikan form edit catatan dan menampilkan card
+            $(document).on('click', '.btn-cancel-edit', function() {
+                let form = $(this).closest('.card');
+                let card = form.prev('.card');
+
                 form.hide();
-                btnEdit.show();
+                card.show();
             });
         });
     </script>
