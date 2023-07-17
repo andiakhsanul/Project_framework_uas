@@ -9,6 +9,7 @@ class Pengingat extends Model
 {
     use HasFactory;
 
+    protected $table = 'pengingat';
     protected $fillable = [
         'mahasiswa_id',
         'TANGGAL_PENGINGAT',
@@ -18,6 +19,11 @@ class Pengingat extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class);
+        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id');
+    }
+
+    public function jadwalHarian()
+    {
+        return $this->belongsTo(JadwalHarian::class, 'jadwalharian_id');
     }
 }

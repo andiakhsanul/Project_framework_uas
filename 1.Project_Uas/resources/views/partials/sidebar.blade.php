@@ -25,6 +25,7 @@
             </ul>
         </div>
         <div class="col-10 main-content flex-grow-1">
+            <div id="notificationContainer"></div>
             @yield('content')
         </div>
     </div>

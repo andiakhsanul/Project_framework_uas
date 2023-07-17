@@ -36,4 +36,11 @@ class TugasController extends Controller
         // Redirect ke halaman yang sesuai setelah menyimpan tugas
         return redirect()->route('home')->with('success', 'Tugas berhasil disimpan.');
     }
+
+    public function delete(Tugas $tugas)
+    {
+        $tugas->delete();
+
+        return redirect()->route('home')->with('success', 'Tugas berhasil dihapus.');
+    }
 }
