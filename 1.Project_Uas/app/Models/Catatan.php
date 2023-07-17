@@ -10,6 +10,8 @@ class Catatan extends Model
     use HasFactory;
 
     protected $table = 'jadwalharian'; // Ganti 'catatan' dengan nama tabel yang sesuai
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
         'hari',
