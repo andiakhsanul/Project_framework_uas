@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Catatan;
+
 
 class Mahasiswa extends Authenticatable
 {
@@ -30,5 +32,10 @@ class Mahasiswa extends Authenticatable
     public function catatans()
     {
         return $this->hasMany(Catatan::class, 'mahasiswa_id');
+    }
+
+    public function tugas()
+    {
+        return $this->hasMany(Tugas::class, 'mahasiswa_id');
     }
 }

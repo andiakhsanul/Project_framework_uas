@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
@@ -13,18 +14,21 @@ class HomeController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $namaUser = Mahasiswa::where('NAMA', $user->NAMA)->value('NAMA');
+            $idUser = Mahasiswa::where('id', $user->id)->value('id');
 
-            $jadwalharian = $user->catatans; // Retrieve the jadwalharian records associated with the user
+            $jadwalharian = $user->catatans;
+            $tugas = $user->tugas; // Retrieve the jadwalharian records associated with the user
 
             return view('pages.users.home', [
                 'title' => 'Home',
                 'namaUser' => $namaUser,
-                'jadwalharian' => $jadwalharian, // Pass the jadwalharian variable to the view
+                'mahasiswaId' => $idUser,
+                'jadwalharian' => $jadwalharian,
+                'tugas' => $tugas,  // Pass the jadwalharian variable to the view
             ]);
         } else {
             // Pengguna tidak terotentikasi, lakukan penanganan yang sesuai
             return redirect()->route('index'); // Contoh: Alihkan pengguna ke halaman login
         }
     }
-
 }

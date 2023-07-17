@@ -1,40 +1,41 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Tugas;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class TugasController extends Controller
 {
     public function store(Request $request)
     {
-        // Validasi data yang dikirim dari formulir
+        // Validate data from the form
         $validatedData = $request->validate([
-            'deskripsi' => 'required|string|max:255',
-            'tenggat_waktu' => 'required|date',
-            'status' => 'required|boolean',
-            'jadwalHarianId' => 'required',
+            'DESK_TUGAS' => 'required|string|max:255',
+            'TENGGAT_WAKTU' => 'required|date',
+            'STATUS' => 'required|boolean',
+            'jadwalharian_id' => 'required',
             'mahasiswaId' => 'required',
         ]);
 
-        $jadwalHarianId = $validatedData['jadwalHarianId'];
-        $mahasiswaId = $validatedData['mahasiswaId'];
+        $user = Auth::user();
 
-        // Membuat instance Tugas dan mengisi atribut-atributnya
-        $tugas = new Tugas();
-        $tugas->DESK_TUGAS = $validatedData['deskripsi'];
-        $tugas->TENGGAT_WAKTU = $validatedData['tenggat_waktu'];
-        $tugas->STATUS = $validatedData['status'];
+        // Create a new Tugas instance using the relationship
+        $tugas = $user->tugas()->create([
+            'DESK_TUGAS' => $validatedData['DESK_TUGAS'],
+            'TENGGAT_WAKTU' => $validatedData['TENGGAT_WAKTU'],
+            'STATUS' => $validatedData['STATUS'],
+            'jadwalharian_id' => $validatedData['jadwalharian_id'],
+            'mahasiswaId' => $validatedData['mahasiswaId'],
+        ]);
 
-        // Assign relasi dengan jadwal harian dan mahasiswa, sesuaikan dengan hubungan antar model
-        $tugas->jadwalHarian()->associate($jadwalHarianId);
-        $tugas->mahasiswa()->associate($mahasiswaId);
+        // Assign relationships with JadwalHarian and Mahasiswa
+        $tugas->jadwalHarian()->associate($validatedData['jadwalharian_id']);
+        $tugas->mahasiswa()->associate($validatedData['mahasiswaId']);
 
         $tugas->save();
 
-        // Redirect ke halaman yang sesuai setelah menyimpan tugas
-        return redirect()->route('home')->with('success', 'Tugas berhasil disimpan.');
+        // dd($tugas);
     }
 
     public function delete(Tugas $tugas)

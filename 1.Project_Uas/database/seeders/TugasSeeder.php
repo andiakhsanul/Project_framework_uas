@@ -19,11 +19,11 @@ class TugasSeeder extends Seeder
     public function run()
     {
         // Get the JadwalHarian ID and Mahasiswa ID for the foreign key references
-        $jadwalHarianId = Catatan::first()->id;
+        $jadwalharian_id = Catatan::first()->id;
         $mahasiswaId = Mahasiswa::first()->id;
 
         Tugas::create([
-            'jadwalharian_id' => $jadwalHarianId,
+            'jadwalharian_id' => $jadwalharian_id,
             'mahasiswa_id' => $mahasiswaId,
             'DESK_TUGAS' => 'Complete assignment',
             'TENGGAT_WAKTU' => now()->addDays(7),
