@@ -303,9 +303,12 @@
             </div>
           </div>
         </div>
-
+        @if ($jadwalharian->isEmpty())
+    <p>No catatan available.</p>
+@else
         <input type="hidden" name="jadwalharian_id" value="{{ $catatan->id }}">
         <input type="hidden" name="mahasiswaId" value="{{ $mahasiswaId }}">
+        @endif
       </form>
     `;
 

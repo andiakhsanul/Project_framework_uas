@@ -24,7 +24,7 @@ class CatatanController extends Controller
         $catatan->save();
 
         // Redirect ke halaman yang sesuai setelah menyimpan catatan
-        // return redirect()->route('home')->with('success', 'Catatan harian berhasil disimpan.');
+        return redirect()->route('home')->with('success', 'Catatan harian berhasil disimpan.');
     }
 
     public function destroy($id)
