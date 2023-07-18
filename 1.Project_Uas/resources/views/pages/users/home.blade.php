@@ -107,7 +107,7 @@
                                     </button>
                                 </div>
                                 <div>
-                                    <button class="buatListTugasButton btn btn-success btn-hover" type="button">
+                                    <button class="buatListTugasButton btn btn-success btn-hover" type="button" data-catatan-id="{{ $catatan->id }}">
                                         <i class="bx bx-plus"></i>
                                     </button>
                                 </div>
@@ -136,7 +136,7 @@
 
                                     <div class="row mt-4">
                                         <div class="col-md-12">
-                                            <div class="d-flex justify-content-center">
+                                            <div class="d-flex justify-content-center gap-2">
                                                 <button type="submit" class="btn btn-primary">Simpan</button>
                                                 <button type="button" class="btn btn-danger btn-cancel-edit">Batal</button>
                                             </div>
@@ -144,11 +144,10 @@
                                     </div>
                                 </form>
 
-
                             </div>
                         </div>
 
-                        <div id="addTugas" style="display: none;">
+                        <div id="addTugas" style="display: none;" data-catatan-id="{{ $catatan->id }}">
                             <div class="card mt-4">
                                 <div class="card-body">
 
@@ -158,7 +157,6 @@
                                         <div class="col-md-12">
                                             <div class="d-flex justify-content-center">
                                                 <button type="button" class="submit-button btn btn-primary" value="submit" id="submitAllForms">Simpan</button>
-                                                <button type="button" class="btn btn-danger btn-cancel-edit">Batal</button>
                                             </div>
                                         </div>
                                     </div>
@@ -220,6 +218,7 @@
                         showNotification(response.message, 'success');
                     },
                     error: function(xhr) {
+                        console.log(xhr)
                         showNotification('Terjadi kesalahan saat menghapus catatan.',
                             'danger');
                     }
@@ -262,10 +261,9 @@
         let formCounter = 0;
 
         $(document).on('click', '.buatListTugasButton', function() {
-            $('#addTugas').show();
-
-            let container = $('#addTugas').closest('.card-body');
-            let tugasRow = container.find('#tugasRow');
+            let catatanId = $(this).data('catatan-id');
+            let addTugasSection = $('#addTugas[data-catatan-id="' + catatanId + '"]');
+            let tugasRow = addTugasSection.find('#tugasRow');
 
             // Increment the formCounter for unique form ID
             formCounter++;
@@ -275,49 +273,51 @@
 
             // Buat form tugas baru
             let newTugasForm = `
-      <form id="${formId}" class="dynamic-form" action="{{ route('storeTugas') }}" method="POST">
-        @csrf
-        <!-- Form input untuk deskripsi, tenggat_waktu, status, dll. -->
+                <form id="${formId}" class="dynamic-form" action="{{ route('storeTugas') }}" method="POST">
+                    @csrf
+                    <!-- Form input untuk deskripsi, tenggat_waktu, status, dll. -->
 
-        <div class="row mt-3">
-          <div class="col-md-12">
-            <div class="mb-3 d-flex justify-content-between align-items-center">
-              <label for="DESK_TUGAS" class="form-label">Deskripsi Tugas:</label>
-              <button class="hapusTugasButton btn btn-danger ml-2" type="button">Hapus</button>
-            </div>
-            <textarea name="DESK_TUGAS" class="form-control" required></textarea>
-          </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-              <label for="TENGGAT_WAKTU" class="form-label">Waktu Pengumpulan:</label>
-              <input type="datetime-local" name="TENGGAT_WAKTU" class="form-control" required>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-              <label for="STATUS" class="form-label">Status Tugas:</label>
-              <select name="STATUS" class="form-control" required>
-                <option value="0">Belum Selesai</option>
-                <option value="1">Selesai</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        @if ($jadwalharian->isEmpty())
-    <p>No catatan available.</p>
-@else
-        <input type="hidden" name="jadwalharian_id" value="{{ $catatan->id }}">
-        <input type="hidden" name="mahasiswaId" value="{{ $mahasiswaId }}">
-        @endif
-      </form>
-    `;
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="mb-3 d-flex justify-content-between align-items-center">
+                                <label for="DESK_TUGAS" class="form-label">Deskripsi Tugas:</label>
+                                <button class="hapusTugasButton btn btn-danger ml-2" type="button" data-catatan-id="${catatanId}">Hapus</button>
+                            </div>
+                            <textarea name="DESK_TUGAS" class="form-control" required></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="TENGGAT_WAKTU" class="form-label">Waktu Pengumpulan:</label>
+                                <input type="datetime-local" name="TENGGAT_WAKTU" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="STATUS" class="form-label">Status Tugas:</label>
+                                <select name="STATUS" class="form-control" required>
+                                    <option value="0">Belum Selesai</option>
+                                    <option value="1">Selesai</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="jadwalharian_id" value="${catatanId}">
+                    <input type="hidden" name="mahasiswaId" value="{{ $mahasiswaId }}">
+                </form>
+            `;
 
             tugasRow.prepend(newTugasForm);
-            tugasRow.show();
+            addTugasSection.show();
         });
 
         $(document).on('click', '.hapusTugasButton', function() {
+            let catatanId = $(this).data('catatan-id');
             $(this).closest('form').remove();
+            
+            formCounter--;
+            if (formCounter === 0) {
+                $('#addTugas[data-catatan-id="' + catatanId + '"]').hide();
+            }
         });
 
         $(document).on('click', '#submitAllForms', function() {
