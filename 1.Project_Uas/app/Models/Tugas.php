@@ -20,8 +20,9 @@ class Tugas extends Model
 
     public function jadwalHarian()
     {
-        return $this->belongsTo(Catatan::class, 'jadwalharian_id');
+        return $this->belongsTo(Catatan::class, 'jadwalharian_id', 'id');
     }
+
 
     public function mahasiswa()
     {

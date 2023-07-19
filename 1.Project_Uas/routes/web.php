@@ -5,10 +5,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TugasController;
-use App\Http\Controllers\Web\MahasiswaController;
 use App\Http\Controllers\Web\HomeController;
 use Illuminate\Support\Facades\Route;
-
 
 // Route::get('/', function () {
 //     return view('pages.Index.login', [
@@ -48,8 +46,9 @@ Route::post('/storeTugas', [TugasController::class, 'store'])->name('storeTugas'
 //update data tabel jadwalharian
 Route::put('/updateCatatan/{id}', [CatatanController::class, 'update'])->name('updateCatatan');
 
-//route delete data jalwalharian
+//route delete data jalwalharian dan tugas
 Route::delete('/deleteCatatan/{id}', [CatatanController::class, 'destroy'])->name('deleteCatatan');
+Route::delete('/deleteTugas/{id}', [TugasController::class, 'delete'])->name('deleteTugas');
 
 Route::get('/register/view', [RegisterController::class, 'index'])->name('registerForms');
 Route::post('/register/data', [RegisterController::class, 'submitRegister'])->name('submitRegister');

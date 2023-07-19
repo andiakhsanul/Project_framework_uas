@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catatan;
+use App\Models\Tugas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -27,13 +28,26 @@ class CatatanController extends Controller
         return redirect()->route('home')->with('success', 'Catatan harian berhasil disimpan.');
     }
 
+    // No 1
+    // public function destroy($id)
+    // {
+    //     $catatan = Catatan::findOrFail($id);
+    //     $catatan->delete();
+
+    //     return response()->json([
+    //         'message' => 'Catatan berhasil dihapus.'
+    //     ]);
+    // }
+
+    // No 2
     public function destroy($id)
     {
         $catatan = Catatan::findOrFail($id);
-        $catatan->delete();
+        $catatan->tugas()->delete(); // Menghapus tugas yang terkait dengan catatan
+        $catatan->delete(); // Menghapus catatan
 
         return response()->json([
-            'message' => 'Catatan berhasil dihapus.'
+            'message' => 'Catatan berhasil dihapus beserta tugas yang terkait.'
         ]);
     }
 

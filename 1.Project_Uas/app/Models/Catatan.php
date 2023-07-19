@@ -23,6 +23,6 @@ class Catatan extends Model
 
     public function tugas()
     {
-        return $this->hasMany(Tugas::class, 'jadwalharian_id');
+        return $this->hasMany(Tugas::class, 'jadwalharian_id', 'id');
     }
 }

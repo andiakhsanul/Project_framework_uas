@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Tugas;
@@ -38,10 +39,23 @@ class TugasController extends Controller
         // dd($tugas);
     }
 
-    public function delete(Tugas $tugas)
+    // No 1
+    // public function delete(Tugas $tugas)
+    // {
+    //     $tugas->delete();
+
+    //     return response()->json([
+    //         'message' => 'Tugas berhasil dihapus.'
+    //     ]);
+    // }
+
+    public function delete($id)
     {
+        $tugas = Tugas::findOrFail($id);
         $tugas->delete();
 
-        return redirect()->route('home')->with('success', 'Tugas berhasil dihapus.');
+        return response()->json([
+            'message' => 'Tugas berhasil dihapus.'
+        ]);
     }
 }
