@@ -47,18 +47,28 @@
                                     <div class="card">
                                         <div class="card-body d-flex align-items-center gap-1">
                                             <!-- grid -->
-                                            <div class="flex-grow-1">
+                                            <div class="flex-grow-1 tugas-item">
                                                 <h5 class="card-text">{{ $catatan->KEGIATAN }} - {{ $catatan->HARI }}</h5>
                                                 <p class="card-title">{{ $catatan->created_at }}</p>
                                                 @foreach ($tugas as $tugass)
                                                     @if ($tugass->jadwalharian_id == $catatan->id)
-                                                        <p>{{ $tugass->jadwalharian_id }} | {{ $tugass->DESK_TUGAS }} |
-                                                            {{ $tugass->TENGGAT_WAKTU }} | @if ($tugass = 1)
-                                                                {{ 'selesai' }}
-                                                            @else
-                                                                {{ 'belum selesai' }}
-                                                            @endif
-                                                        </p>
+                                                        <div class="tugas-item" data-catatan-id="{{ $catatan->id }}"
+                                                            data-tugas-id="{{ $tugass->id }}">
+                                                            <p class="deskripsi-tugas">
+                                                                {{ $tugass->jadwalharian_id }} | {{ $tugass->DESK_TUGAS }} |
+                                                                {{ $tugass->TENGGAT_WAKTU }} |
+                                                                @if ($tugass->STATUS == 1)
+                                                                    {{ 'selesai' }}
+                                                                @else
+                                                                    {{ 'belum selesai' }}
+                                                                @endif
+                                                            </p>
+                                                            <button class="btn btn-warning btn-hover btn-edit-tugas"
+                                                                type="button">Edit</button>
+                                                            <button class="btn btn-danger btn-hover btn-delete-tugas"
+                                                                type="button"
+                                                                data-tugas-id="{{ $tugass->id }}">Hapus</button>
+                                                        </div>
                                                     @endif
                                                 @endforeach
                                             </div>
@@ -83,6 +93,7 @@
                                         </div>
                                     </div>
 
+                                    {{-- Form Edit Catatan --}}
                                     <div class="card mt-4" style="display: none;">
                                         <div class="card-body">
                                             <h5 class="card-title">Form Edit Catatan Harian</h5>
@@ -114,6 +125,7 @@
                                         </div>
                                     </div>
 
+                                    {{-- Form Tambah Tugas --}}
                                     <div id="addTugas" style="display: none;" data-catatan-id="{{ $catatan->id }}">
                                         <div class="card mt-4">
                                             <div class="card-body">
@@ -129,6 +141,56 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- Form Edit Tugas --}}
+                                    <div class="card mt-4" style="display: none;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Form Edit Tugas</h5>
+                                            <form id="form{{ $tugass->id }}" class="dynamic-form"
+                                                action="{{ route('updateTugas', $tugass->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <!-- Form edit untuk deskripsi, tenggat_waktu, status, dll. -->
+                                                <div class="row mt-3">
+                                                    <div class="col-md-12">
+                                                        <div
+                                                            class="mb-3 d-flex justify-content-between align-items-center">
+                                                            <label for="DESK_TUGAS" class="form-label">Deskripsi
+                                                                Tugas:</label>
+                                                        </div>
+                                                        <textarea name="DESK_TUGAS" class="form-control" required></textarea>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="TENGGAT_WAKTU" class="form-label">Waktu
+                                                                Pengumpulan:</label>
+                                                            <input type="datetime-local" name="TENGGAT_WAKTU"
+                                                                class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="STATUS" class="form-label">Status Tugas:</label>
+                                                            <select name="STATUS" class="form-control" required>
+                                                                <option value="0">Belum Selesai</option>
+                                                                <option value="1">Selesai</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-4">
+                                                    <div class="col-md-12">
+                                                        <div class="d-flex justify-content-center">
+                                                            <button type="button" class="submit-button btn btn-primary"
+                                                                value="submit" id="submitAllForms">Simpan</button>
+                                                            <button type="button"
+                                                                class="btn btn-danger btn-cancel-edit">Batal</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
 
@@ -165,78 +227,6 @@
             });
         });
 
-        // No 1
-        // script untuk menghapus isi data tabel catatan dan tabel tugas
-        // $(document).ready(function() {
-        //     $(document).on('click', '.btn-delete', function() {
-
-        //         let catatanId = $(this).data('catatan-id');
-        //         let deleteUrl = "{{ route('deleteCatatan', ':id') }}".replace(':id', catatanId);
-
-        //         // Konfirmasi dialog sebelum menghapus catatan
-        //         if (confirm('Apakah Anda yakin ingin menghapus catatan ini?')) {
-        //             $.ajax({
-        //                 url: deleteUrl,
-        //                 type: 'DELETE',
-        //                 data: {
-        //                     _token: "{{ csrf_token() }}"
-        //                 },
-        //                 success: function(response) {
-        //                     // Menghapus div kolom yang sesuai dengan catatan yang dihapus
-        //                     $('.col-md-6[data-catatan-id="' + catatanId + '"]').remove();
-        //                     showNotification(response.message, 'success');
-        //                 },
-        //                 error: function(xhr) {
-        //                     console.log(xhr)
-        //                     showNotification('Terjadi kesalahan saat menghapus catatan.',
-        //                         'danger');
-        //                 }
-        //             });
-        //         }
-        //     });
-        // });
-
-        // No 2
-        // script untuk menghapus catatan dan tugas
-        // $(document).ready(function() {
-        //     $(document).on('click', '.btn-delete', function() {
-        //         let catatanId = $(this).data('catatan-id');
-        //         let deleteUrl = "{{ route('deleteCatatan', ':id') }}".replace(':id', catatanId);
-
-        //         // Konfirmasi dialog sebelum menghapus catatan
-        //         if (confirm('Apakah Anda yakin ingin menghapus catatan ini beserta tugas yang terkait?')) {
-        //             $.ajax({
-        //                 url: deleteUrl,
-        //                 type: 'DELETE',
-        //                 data: {
-        //                     _token: "{{ csrf_token() }}"
-        //                 },
-        //                 success: function(response) {
-        //                     // Menghapus div kolom yang sesuai dengan catatan yang dihapus
-        //                     $('.col-md-6[data-catatan-id="' + catatanId + '"]').remove();
-        //                     showNotification(response.message, 'success');
-        //                 },
-        //                 error: function(xhr) {
-        //                     console.log(xhr)
-        //                     showNotification('Terjadi kesalahan saat menghapus catatan.',
-        //                         'danger');
-        //                 }
-        //             });
-        //         }
-        //     });
-
-        //     $(document).on('click', '.hapusTugasButton', function() {
-        //         let catatanId = $(this).data('catatan-id');
-        //         $(this).closest('form').remove();
-
-        //         formCounter--;
-        //         if (formCounter === 0) {
-        //             $('#addTugas[data-catatan-id="' + catatanId + '"]').hide();
-        //         }
-        //     });
-        // });
-
-        // No 3
         // script untuk menghapus catatan dan tugas
         $(document).ready(function() {
             $(document).on('click', '.btn-delete', function() {
@@ -379,33 +369,59 @@
             });
         });
 
-        // script untuk menambahkan form tugas spsifik tapi belum ada tombolnya
-        // $(document).ready(function() {
-        //     $(document).on('click', '.btn-delete-tugas', function() {
-        //         let tugasId = $(this).data('tugas-id');
-        //         let deleteUrl = "{{ route('deleteTugas', ':id') }}".replace(':id', tugasId);
+        // script untuk menghapus div dan isi database form tugas spsifik
+        $(document).ready(function() {
+            $(document).on('click', '.btn-delete-tugas', function() {
+                let tugasId = $(this).data('tugas-id');
+                let deleteUrl = "{{ route('deleteTugas', ':id') }}".replace(':id', tugasId);
 
-        //         // Konfirmasi dialog sebelum menghapus tugas
-        //         if (confirm('Apakah Anda yakin ingin menghapus tugas ini?')) {
-        //             $.ajax({
-        //                 url: deleteUrl,
-        //                 type: 'DELETE',
-        //                 data: {
-        //                     _token: "{{ csrf_token() }}"
-        //                 },
-        //                 success: function(response) {
-        //                     // Menghapus div tugas yang sesuai dengan tugas yang dihapus
-        //                     $('.tugas-item[data-tugas-id="' + tugasId + '"]').remove();
-        //                     showNotification(response.message, 'success');
-        //                 },
-        //                 error: function(xhr) {
-        //                     console.log(xhr);
-        //                     showNotification('Terjadi kesalahan saat menghapus tugas.',
-        //                         'danger');
-        //                 }
-        //             });
-        //         }
-        //     });
-        // });
+                // Konfirmasi dialog sebelum menghapus tugas
+                if (confirm('Apakah Anda yakin ingin menghapus tugas ini?')) {
+                    $.ajax({
+                        url: deleteUrl,
+                        type: 'DELETE',
+                        data: {
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            // Menghapus div tugas yang sesuai dengan tugas yang dihapus
+                            $('.tugas-item[data-tugas-id="' + tugasId + '"]').remove();
+                            showNotification(response.message, 'success');
+                        },
+                        error: function(xhr) {
+                            console.log(xhr);
+                            showNotification('Terjadi kesalahan saat menghapus tugas.',
+                                'danger');
+                        }
+                    });
+                }
+            });
+        });
+
+        // script untuk memunculkan form edit tugas dan update tabel tugas spesifik (masih perlu fix)
+        $(document).ready(function() {
+            // Ketika tombol "Edit" di klik, tampilkan form edit dan isi data tugas yang sesuai
+            $('.btn-edit-tugas').on('click', function() {
+                var tugasId = $(this).data('catatan-id'); // Ambil ID tugas dari atribut data-catatan-id
+                var form = $('#form' + tugasId); // Cari form berdasarkan ID tugas
+
+                // Ambil data tugas dari paragraf dan isikan ke dalam form
+                var deskripsi = $(this).parent().find('.deskripsi-tugas').text();
+                var tenggatWaktu = $(this).parent().find('.tenggat-waktu').text();
+                var status = $(this).parent().find('.status-tugas').text();
+
+                form.find('textarea[name="DESK_TUGAS"]').val(deskripsi);
+                form.find('input[name="TENGGAT_WAKTU"]').val(tenggatWaktu);
+                form.find('select[name="STATUS"]').val(status === 'selesai' ? 1 : 0);
+
+                // Tampilkan form edit
+                form.parent().show();
+            });
+
+            // Ketika tombol "Cancel" pada form edit di klik, sembunyikan form edit
+            $('.btn-cancel-edit').on('click', function() {
+                $(this).closest('.card').hide();
+            });
+        });
     </script>
 @endsection

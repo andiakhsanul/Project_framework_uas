@@ -45,6 +45,7 @@ Route::post('/storeTugas', [TugasController::class, 'store'])->name('storeTugas'
 
 //update data tabel jadwalharian
 Route::put('/updateCatatan/{id}', [CatatanController::class, 'update'])->name('updateCatatan');
+Route::put('/tugas/{id}', [TugasController::class, 'update'])->name('updateTugas');
 
 //route delete data jalwalharian dan tugas
 Route::delete('/deleteCatatan/{id}', [CatatanController::class, 'destroy'])->name('deleteCatatan');

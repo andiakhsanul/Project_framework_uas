@@ -39,16 +39,6 @@ class TugasController extends Controller
         // dd($tugas);
     }
 
-    // No 1
-    // public function delete(Tugas $tugas)
-    // {
-    //     $tugas->delete();
-
-    //     return response()->json([
-    //         'message' => 'Tugas berhasil dihapus.'
-    //     ]);
-    // }
-
     public function delete($id)
     {
         $tugas = Tugas::findOrFail($id);
@@ -57,5 +47,26 @@ class TugasController extends Controller
         return response()->json([
             'message' => 'Tugas berhasil dihapus.'
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validate data from the form
+        $validatedData = $request->validate([
+            'DESK_TUGAS' => 'required|string|max:255',
+            'TENGGAT_WAKTU' => 'required|date',
+            'STATUS' => 'required|boolean',
+        ]);
+
+        $tugas = Tugas::findOrFail($id); // Find the Tugas record by ID
+
+        // Update the Tugas record with the new data
+        $tugas->DESK_TUGAS = $validatedData['DESK_TUGAS'];
+        $tugas->TENGGAT_WAKTU = $validatedData['TENGGAT_WAKTU'];
+        $tugas->STATUS = $validatedData['STATUS'];
+        $tugas->save();
+
+        // Redirect back to the page where the form was submitted from
+        return redirect()->back()->with('success', 'Tugas berhasil diperbarui.');
     }
 }
