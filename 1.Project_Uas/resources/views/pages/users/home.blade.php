@@ -53,7 +53,7 @@
                                                 @foreach ($tugas as $tugass)
                                                     @if ($tugass->jadwalharian_id == $catatan->id)
                                                         <p>{{ $tugass->jadwalharian_id }} | {{ $tugass->DESK_TUGAS }} |
-                                                            {{ $tugass->TENGGAT_WAKTU }} | {{ $tugas->STATUS }}</p>
+                                                            {{ $tugass->TENGGAT_WAKTU }} | {{ $tugass->STATUS }}</p>
                                                     @endif
                                                 @endforeach
                                             </div>
