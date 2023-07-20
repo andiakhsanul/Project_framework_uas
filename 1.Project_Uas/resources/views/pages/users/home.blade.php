@@ -425,10 +425,18 @@
             $(document).on('click', '.submit-button', function() {
                 let form = $('#editForm');
                 let data = form.serialize();
+                let tugasId =
+                '{{ $tugass->id ?? null }}'; // Use null as default if $tugass->id is not defined
+
+                if (tugasId === null) {
+                    // Handle case where tugasId is not defined or the user has no tasks
+                    console.log('Tugas ID is not defined');
+                    
+                    return;
+                }
 
                 $.ajax({
-                    url: '/tugas/' +
-                        {{ $tugass->id }}, // Ganti {{ $tugass->id }} dengan ID tugas yang ingin diupdate
+                    url: '/tugas/' + tugasId,
                     type: 'PUT', // Menggunakan metode PUT karena ingin mengupdate data
                     data: data,
                     success: function(response) {
