@@ -19,18 +19,18 @@
             </tr>
         </thead>
         <tbody>
-            @if ($pengingat->isEmpty())
+            {{-- @if ($pengingat->isEmpty())
             <tr>
                 <td colspan="2" class="text-center">Belum ada Notifikasi yang masuk</td>
             </tr>
-            @else
+            @else --}}
             @foreach($pengingat as $item)
             <tr>
                 <td class="bg-light text-dark border-bottom">{{ $item->TANGGAL_PENGINGAT }}</td>
                 <td class="bg-light text-dark">Yuk, selesaikan jadwalmu: {{ $item->jadwalHarian->kegiatan }}</td>
             </tr>
             @endforeach
-            @endif
+            {{-- @endif --}}
         </tbody>
     </table>
 </div>

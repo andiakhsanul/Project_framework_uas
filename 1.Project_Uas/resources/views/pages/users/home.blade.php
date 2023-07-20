@@ -46,14 +46,14 @@
                                 <div class="card p-2 bg-primary">
                                     <div class="card">
                                         <div class="card-body d-flex align-items-center gap-1">
-                                            <!-- grid -->
                                             <div class="flex-grow-1 tugas-item">
+                                                {{-- Menampilkan Catatan --}}
                                                 <h5 class="card-text">{{ $catatan->KEGIATAN }} - {{ $catatan->HARI }}</h5>
                                                 <p class="card-title">{{ $catatan->created_at }}</p>
                                                 @foreach ($tugas as $tugass)
                                                     @if ($tugass->jadwalharian_id == $catatan->id)
-                                                        <div class="tugas-item" data-catatan-id="{{ $catatan->id }}"
-                                                            data-tugas-id="{{ $tugass->id }}">
+                                                        {{-- Menampilkan Tugas --}}
+                                                        <div class="tugas-item" data-tugas-id="{{ $tugass->id }}">
                                                             <p class="deskripsi-tugas">
                                                                 {{ $tugass->jadwalharian_id }} | {{ $tugass->DESK_TUGAS }} |
                                                                 {{ $tugass->TENGGAT_WAKTU }} |
@@ -64,7 +64,8 @@
                                                                 @endif
                                                             </p>
                                                             <button class="btn btn-warning btn-hover btn-edit-tugas"
-                                                                type="button">Edit</button>
+                                                                type="button"
+                                                                data-tugas-id="{{ $tugass->id }}">Edit</button>
                                                             <button class="btn btn-danger btn-hover btn-delete-tugas"
                                                                 type="button"
                                                                 data-tugas-id="{{ $tugass->id }}">Hapus</button>
@@ -113,7 +114,7 @@
 
                                                 <div class="row mt-4">
                                                     <div class="col-md-12">
-                                                        <div class="d-flex justify-content-center gap-2">
+                                                        <div class="d-flex justify-content-center gap-2 ">
                                                             <button type="submit" class="btn btn-primary">Simpan</button>
                                                             <button type="button"
                                                                 class="btn btn-danger btn-cancel-edit">Batal</button>
@@ -121,7 +122,6 @@
                                                     </div>
                                                 </div>
                                             </form>
-
                                         </div>
                                     </div>
 
@@ -145,11 +145,109 @@
                                     </div>
 
                                     {{-- Form Edit Tugas --}}
-                                    <div class="card mt-4" style="display: none;">
+                                    {{-- <div class="card mt-3" style="display: none;">
                                         <div class="card-body">
                                             <h5 class="card-title">Form Edit Tugas</h5>
-                                            <form id="form{{ $tugass->id }}" class="dynamic-form"
-                                                action="{{ route('updateTugas', $tugass->id) }}" method="POST">
+                                            <form id="editForm" class="dynamic-form">
+                                                <!-- Form edit untuk deskripsi, tenggat_waktu, status, dll. -->
+                                                <div class="row mt-3">
+                                                    <div class="col-md-12">
+                                                        <div
+                                                            class="mb-3 d-flex justify-content-between align-items-center">
+                                                            <label for="DESK_TUGAS" class="form-label">Deskripsi
+                                                                Tugas:</label>
+                                                            <button class="hapusTugasButton btn btn-danger ml-2"
+                                                                type="button"
+                                                                data-catatan-id="${catatanId}">Hapus</button>
+                                                        </div>
+                                                        <textarea name="DESK_TUGAS" class="form-control" required></textarea>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="TENGGAT_WAKTU" class="form-label">Waktu
+                                                                Pengumpulan:</label>
+                                                            <input type="datetime-local" name="TENGGAT_WAKTU"
+                                                                class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="STATUS" class="form-label">Status Tugas:</label>
+                                                            <select name="STATUS" class="form-control" required>
+                                                                <option value="0">Belum Selesai</option>
+                                                                <option value="1">Selesai</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-4">
+                                                    <div class="col-md-12">
+                                                        <div class="d-flex justify-content-center gap-2">
+                                                            <button type="button" class="submit-button btn btn-primary"
+                                                                id="submitAllForms">Simpan</button>
+                                                            <button type="button"
+                                                                class="btn btn-danger btn-cancel-edit">Batal</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div> --}}
+
+                                    {{-- <div class="card mt-3" style="display: none;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Form Edit Tugas</h5>
+                                            <form id="editForm" class="dynamic-form">
+                                                <!-- Form edit untuk deskripsi, tenggat_waktu, status, dll. -->
+                                                <div class="row mt-3">
+                                                    <div class="col-md-12">
+                                                        <div
+                                                            class="mb-3 d-flex justify-content-between align-items-center">
+                                                            <label for="DESK_TUGAS" class="form-label">Deskripsi
+                                                                Tugas:</label>
+                                                            <button class="hapusTugasButton btn btn-danger ml-2"
+                                                                type="button"
+                                                                data-catatan-id="${catatanId}">Hapus</button>
+                                                        </div>
+                                                        <textarea name="DESK_TUGAS" class="form-control" required></textarea>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="TENGGAT_WAKTU" class="form-label">Waktu
+                                                                Pengumpulan:</label>
+                                                            <input type="datetime-local" name="TENGGAT_WAKTU"
+                                                                class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="STATUS" class="form-label">Status Tugas:</label>
+                                                            <select name="STATUS" class="form-control" required>
+                                                                <option value="0">Belum Selesai</option>
+                                                                <option value="1">Selesai</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-4">
+                                                    <div class="col-md-12">
+                                                        <div class="d-flex justify-content-center gap-2">
+                                                            <button type="button" class="submit-button btn btn-primary"
+                                                                id="submitAllForms">Simpan</button>
+                                                            <button type="button"
+                                                                class="btn btn-danger btn-cancel-edit">Batal</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div> --}}
+
+                                    {{-- id="form{{ $tugass->id }}" --}}
+                                    <div class="card mt-3" style="display: none;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Form Edit Tugas</h5>
+                                            <form id="editForm" class="dynamic-form">
                                                 @csrf
                                                 @method('PUT')
                                                 <!-- Form edit untuk deskripsi, tenggat_waktu, status, dll. -->
@@ -182,9 +280,9 @@
                                                 </div>
                                                 <div class="row mt-4">
                                                     <div class="col-md-12">
-                                                        <div class="d-flex justify-content-center">
+                                                        <div class="d-flex justify-content-center gap-2">
                                                             <button type="button" class="submit-button btn btn-primary"
-                                                                value="submit" id="submitAllForms">Simpan</button>
+                                                                id="submitAllForms">Simpan</button>
                                                             <button type="button"
                                                                 class="btn btn-danger btn-cancel-edit">Batal</button>
                                                         </div>
@@ -369,7 +467,7 @@
             });
         });
 
-        // script untuk menghapus div dan isi database form tugas spsifik
+        // script untuk menghapus div dan isi database form tugas spesifik
         $(document).ready(function() {
             $(document).on('click', '.btn-delete-tugas', function() {
                 let tugasId = $(this).data('tugas-id');
@@ -399,29 +497,146 @@
         });
 
         // script untuk memunculkan form edit tugas dan update tabel tugas spesifik (masih perlu fix)
+        // $(document).ready(function() {
+        //     // Ketika tombol "Edit" di klik, tampilkan form edit dan isi data tugas yang sesuai
+        //     $(document).on('click', '.btn-edit-tugas', function() {
+        //         let tugasId = $(this).data('tugas-id'); // Ambil ID tugas dari atribut data-catatan-id
+        //         let form = $('#form' + tugasId); // Cari form berdasarkan ID tugas
+
+        //         // Ambil data tugas dari paragraf dan isikan ke dalam form
+        //         var deskripsi = $(this).parent().find('.deskripsi-tugas').text();
+        //         var tenggatWaktu = $(this).parent().find('.tenggat-waktu').text();
+        //         var status = $(this).parent().find('.status-tugas').text();
+
+        //         form.find('textarea[name="DESK_TUGAS"]').val(deskripsi);
+        //         form.find('input[name="TENGGAT_WAKTU"]').val(tenggatWaktu);
+        //         form.find('select[name="STATUS"]').val(status === 'selesai' ? 1 : 0);
+
+        //         // Tampilkan form edit
+        //         form.parent().show();
+        //     });
+
+        //     // Ketika tombol "Cancel" pada form edit di klik, sembunyikan form edit
+        //     $('.btn-cancel-edit').on('click', function() {
+        //         $(this).closest('.card').hide();
+        //     });
+        // });
+
+        // $(document).ready(function() {
+        //     // Ketika tombol "Edit" di klik, tampilkan form edit dan isi data tugas yang sesuai
+        //     $(document).on('click', '.btn-edit-tugas', function() {
+        //         let tugasId = $(this).data('tugas-id'); // Ambil ID tugas dari atribut data-tugas-id
+        //         let form = $('#form' + tugasId); // Cari form berdasarkan ID tugas
+
+        //         // Ambil data tugas dari paragraf dan isikan ke dalam form
+        //         let deskripsi = $(this).parent().find('.deskripsi-tugas').text();
+        //         let tenggatWaktu = $(this).parent().find('.tenggat-waktu').text();
+        //         let status = $(this).parent().find('.status-tugas').text();
+
+        //         form.find('textarea[name="DESK_TUGAS"]').val(deskripsi);
+        //         form.find('input[name="TENGGAT_WAKTU"]').val(tenggatWaktu);
+        //         form.find('select[name="STATUS"]').val(status === 'selesai' ? 1 : 0);
+
+        //         // Tampilkan form edit
+        //         form.parent().show();
+        //     });
+
+        //     // Ketika tombol "Cancel" pada form edit di klik, sembunyikan form edit
+        //     $(document).on('click', '.btn-cancel-edit', function() {
+        //         $(this).closest('.card').hide();
+        //     });
+        // });
+
         $(document).ready(function() {
             // Ketika tombol "Edit" di klik, tampilkan form edit dan isi data tugas yang sesuai
-            $('.btn-edit-tugas').on('click', function() {
-                var tugasId = $(this).data('catatan-id'); // Ambil ID tugas dari atribut data-catatan-id
-                var form = $('#form' + tugasId); // Cari form berdasarkan ID tugas
+            $(document).on('click', '.btn-edit-tugas', function() {
+                let tugasId = $(this).data('tugas-id'); // Ambil ID tugas dari atribut data-tugas-id
+                let form = $('.card.mt-3');
 
                 // Ambil data tugas dari paragraf dan isikan ke dalam form
-                var deskripsi = $(this).parent().find('.deskripsi-tugas').text();
-                var tenggatWaktu = $(this).parent().find('.tenggat-waktu').text();
-                var status = $(this).parent().find('.status-tugas').text();
+                let deskripsi = $(this).parent().find('.deskripsi-tugas').text();
+                let tenggatWaktu = $(this).parent().find('.tenggat-waktu').text();
+                let status = $(this).parent().find('.status-tugas').text();
 
                 form.find('textarea[name="DESK_TUGAS"]').val(deskripsi);
                 form.find('input[name="TENGGAT_WAKTU"]').val(tenggatWaktu);
                 form.find('select[name="STATUS"]').val(status === 'selesai' ? 1 : 0);
 
                 // Tampilkan form edit
-                form.parent().show();
+                form.show();
             });
 
             // Ketika tombol "Cancel" pada form edit di klik, sembunyikan form edit
-            $('.btn-cancel-edit').on('click', function() {
-                $(this).closest('.card').hide();
+            $(document).on('click', '.btn-cancel-edit', function() {
+                let form = $('.card.mt-3');
+                form.hide();
+            });
+
+            // Submit form (with AJAX request)
+            $(document).on('click', '.submit-button', function() {
+                let form = $('#editForm');
+                let data = form.serialize();
+
+                $.ajax({
+                    url: '/tugas/' +
+                        {{ $tugass->id }}, // Ganti {{ $tugass->id }} dengan ID tugas yang ingin diupdate
+                    type: 'PUT', // Menggunakan metode PUT karena ingin mengupdate data
+                    data: data,
+                    success: function(response) {
+                        // Handle success response, misalnya memberikan pesan sukses atau mengambil data terbaru
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        // Handle error response, misalnya memberikan pesan error atau menangani kesalahan lainnya
+                        console.error(error);
+                    }
+                });
             });
         });
+
+        // $(document).ready(function() {
+        //     // Ketika tombol "Edit" di klik, tampilkan form edit dan isi data tugas yang sesuai
+        //     $(document).on('click', '.btn-edit-tugas', function() {
+        //         let tugasId = $(this).data('tugas-id');
+        //         let form = $('#form' + tugasId); // Ubah cara mengambil form berdasarkan ID
+
+        //         // Ambil data tugas dari paragraf dan isikan ke dalam form
+        //         let deskripsi = $(this).parent().find('.deskripsi-tugas').text();
+        //         let tenggatWaktu = $(this).parent().find('.tenggat-waktu').text();
+        //         let status = $(this).parent().find('.status-tugas').text();
+
+        //         form.find('textarea[name="DESK_TUGAS"]').val(deskripsi);
+        //         form.find('input[name="TENGGAT_WAKTU"]').val(tenggatWaktu);
+        //         form.find('select[name="STATUS"]').val(status === 'selesai' ? 1 : 0);
+
+        //         // Tampilkan form edit
+        //         form.parent().show();
+        //     });
+
+        //     // Ketika tombol "Cancel" pada form edit di klik, sembunyikan form edit
+        //     $('.btn-cancel-edit').on('click', function() {
+        //         $(this).closest('.card').hide();
+        //     });
+
+        //     // Submit form (you can add your own logic here)
+        //     $(document).on('click', '.submit-button', function() {
+        //         let form = $(this).closest('form'); // Ambil form terdekat dari tombol "Submit"
+        //         let data = form.serialize();
+
+        //         $.ajax({
+        //             url: form.attr('action'), // URL tujuan untuk mengupdate data tugas
+        //             type: 'PUT', // Menggunakan metode PUT karena ingin mengupdate data
+        //             data: data,
+        //             success: function(response) {
+        //                 // Handle success response, misalnya memberikan pesan sukses atau mengambil data terbaru
+        //                 console.log(response);
+        //             },
+        //             error: function(error) {
+        //                 // Handle error response, misalnya memberikan pesan error atau menangani kesalahan lainnya
+        //                 console.error(error);
+        //             }
+        //         });
+        //     });
+        // });
     </script>
 @endsection
