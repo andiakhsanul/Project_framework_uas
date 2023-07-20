@@ -145,105 +145,6 @@
                                     </div>
 
                                     {{-- Form Edit Tugas --}}
-                                    {{-- <div class="card mt-3" style="display: none;">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Form Edit Tugas</h5>
-                                            <form id="editForm" class="dynamic-form">
-                                                <!-- Form edit untuk deskripsi, tenggat_waktu, status, dll. -->
-                                                <div class="row mt-3">
-                                                    <div class="col-md-12">
-                                                        <div
-                                                            class="mb-3 d-flex justify-content-between align-items-center">
-                                                            <label for="DESK_TUGAS" class="form-label">Deskripsi
-                                                                Tugas:</label>
-                                                            <button class="hapusTugasButton btn btn-danger ml-2"
-                                                                type="button"
-                                                                data-catatan-id="${catatanId}">Hapus</button>
-                                                        </div>
-                                                        <textarea name="DESK_TUGAS" class="form-control" required></textarea>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label for="TENGGAT_WAKTU" class="form-label">Waktu
-                                                                Pengumpulan:</label>
-                                                            <input type="datetime-local" name="TENGGAT_WAKTU"
-                                                                class="form-control" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label for="STATUS" class="form-label">Status Tugas:</label>
-                                                            <select name="STATUS" class="form-control" required>
-                                                                <option value="0">Belum Selesai</option>
-                                                                <option value="1">Selesai</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-4">
-                                                    <div class="col-md-12">
-                                                        <div class="d-flex justify-content-center gap-2">
-                                                            <button type="button" class="submit-button btn btn-primary"
-                                                                id="submitAllForms">Simpan</button>
-                                                            <button type="button"
-                                                                class="btn btn-danger btn-cancel-edit">Batal</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div> --}}
-
-                                    {{-- <div class="card mt-3" style="display: none;">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Form Edit Tugas</h5>
-                                            <form id="editForm" class="dynamic-form">
-                                                <!-- Form edit untuk deskripsi, tenggat_waktu, status, dll. -->
-                                                <div class="row mt-3">
-                                                    <div class="col-md-12">
-                                                        <div
-                                                            class="mb-3 d-flex justify-content-between align-items-center">
-                                                            <label for="DESK_TUGAS" class="form-label">Deskripsi
-                                                                Tugas:</label>
-                                                            <button class="hapusTugasButton btn btn-danger ml-2"
-                                                                type="button"
-                                                                data-catatan-id="${catatanId}">Hapus</button>
-                                                        </div>
-                                                        <textarea name="DESK_TUGAS" class="form-control" required></textarea>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label for="TENGGAT_WAKTU" class="form-label">Waktu
-                                                                Pengumpulan:</label>
-                                                            <input type="datetime-local" name="TENGGAT_WAKTU"
-                                                                class="form-control" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label for="STATUS" class="form-label">Status Tugas:</label>
-                                                            <select name="STATUS" class="form-control" required>
-                                                                <option value="0">Belum Selesai</option>
-                                                                <option value="1">Selesai</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-4">
-                                                    <div class="col-md-12">
-                                                        <div class="d-flex justify-content-center gap-2">
-                                                            <button type="button" class="submit-button btn btn-primary"
-                                                                id="submitAllForms">Simpan</button>
-                                                            <button type="button"
-                                                                class="btn btn-danger btn-cancel-edit">Batal</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div> --}}
-
-                                    {{-- id="form{{ $tugass->id }}" --}}
                                     <div class="card mt-3" style="display: none;">
                                         <div class="card-body">
                                             <h5 class="card-title">Form Edit Tugas</h5>
@@ -442,8 +343,6 @@
             $(document).on('click', '#submitAllForms', function() {
                 let forms = $('.dynamic-form');
 
-                // Perform form validation if needed
-
                 // iterasi/refresh dan pengiriman form menggunakan AJAX
                 forms.each(function() {
                     let form = $(this);
@@ -496,57 +395,7 @@
             });
         });
 
-        // script untuk memunculkan form edit tugas dan update tabel tugas spesifik (masih perlu fix)
-        // $(document).ready(function() {
-        //     // Ketika tombol "Edit" di klik, tampilkan form edit dan isi data tugas yang sesuai
-        //     $(document).on('click', '.btn-edit-tugas', function() {
-        //         let tugasId = $(this).data('tugas-id'); // Ambil ID tugas dari atribut data-catatan-id
-        //         let form = $('#form' + tugasId); // Cari form berdasarkan ID tugas
-
-        //         // Ambil data tugas dari paragraf dan isikan ke dalam form
-        //         var deskripsi = $(this).parent().find('.deskripsi-tugas').text();
-        //         var tenggatWaktu = $(this).parent().find('.tenggat-waktu').text();
-        //         var status = $(this).parent().find('.status-tugas').text();
-
-        //         form.find('textarea[name="DESK_TUGAS"]').val(deskripsi);
-        //         form.find('input[name="TENGGAT_WAKTU"]').val(tenggatWaktu);
-        //         form.find('select[name="STATUS"]').val(status === 'selesai' ? 1 : 0);
-
-        //         // Tampilkan form edit
-        //         form.parent().show();
-        //     });
-
-        //     // Ketika tombol "Cancel" pada form edit di klik, sembunyikan form edit
-        //     $('.btn-cancel-edit').on('click', function() {
-        //         $(this).closest('.card').hide();
-        //     });
-        // });
-
-        // $(document).ready(function() {
-        //     // Ketika tombol "Edit" di klik, tampilkan form edit dan isi data tugas yang sesuai
-        //     $(document).on('click', '.btn-edit-tugas', function() {
-        //         let tugasId = $(this).data('tugas-id'); // Ambil ID tugas dari atribut data-tugas-id
-        //         let form = $('#form' + tugasId); // Cari form berdasarkan ID tugas
-
-        //         // Ambil data tugas dari paragraf dan isikan ke dalam form
-        //         let deskripsi = $(this).parent().find('.deskripsi-tugas').text();
-        //         let tenggatWaktu = $(this).parent().find('.tenggat-waktu').text();
-        //         let status = $(this).parent().find('.status-tugas').text();
-
-        //         form.find('textarea[name="DESK_TUGAS"]').val(deskripsi);
-        //         form.find('input[name="TENGGAT_WAKTU"]').val(tenggatWaktu);
-        //         form.find('select[name="STATUS"]').val(status === 'selesai' ? 1 : 0);
-
-        //         // Tampilkan form edit
-        //         form.parent().show();
-        //     });
-
-        //     // Ketika tombol "Cancel" pada form edit di klik, sembunyikan form edit
-        //     $(document).on('click', '.btn-cancel-edit', function() {
-        //         $(this).closest('.card').hide();
-        //     });
-        // });
-
+        // script untuk memunculkan form edit tugas dan update tabel tugas spesifik
         $(document).ready(function() {
             // Ketika tombol "Edit" di klik, tampilkan form edit dan isi data tugas yang sesuai
             $(document).on('click', '.btn-edit-tugas', function() {
@@ -593,50 +442,5 @@
                 });
             });
         });
-
-        // $(document).ready(function() {
-        //     // Ketika tombol "Edit" di klik, tampilkan form edit dan isi data tugas yang sesuai
-        //     $(document).on('click', '.btn-edit-tugas', function() {
-        //         let tugasId = $(this).data('tugas-id');
-        //         let form = $('#form' + tugasId); // Ubah cara mengambil form berdasarkan ID
-
-        //         // Ambil data tugas dari paragraf dan isikan ke dalam form
-        //         let deskripsi = $(this).parent().find('.deskripsi-tugas').text();
-        //         let tenggatWaktu = $(this).parent().find('.tenggat-waktu').text();
-        //         let status = $(this).parent().find('.status-tugas').text();
-
-        //         form.find('textarea[name="DESK_TUGAS"]').val(deskripsi);
-        //         form.find('input[name="TENGGAT_WAKTU"]').val(tenggatWaktu);
-        //         form.find('select[name="STATUS"]').val(status === 'selesai' ? 1 : 0);
-
-        //         // Tampilkan form edit
-        //         form.parent().show();
-        //     });
-
-        //     // Ketika tombol "Cancel" pada form edit di klik, sembunyikan form edit
-        //     $('.btn-cancel-edit').on('click', function() {
-        //         $(this).closest('.card').hide();
-        //     });
-
-        //     // Submit form (you can add your own logic here)
-        //     $(document).on('click', '.submit-button', function() {
-        //         let form = $(this).closest('form'); // Ambil form terdekat dari tombol "Submit"
-        //         let data = form.serialize();
-
-        //         $.ajax({
-        //             url: form.attr('action'), // URL tujuan untuk mengupdate data tugas
-        //             type: 'PUT', // Menggunakan metode PUT karena ingin mengupdate data
-        //             data: data,
-        //             success: function(response) {
-        //                 // Handle success response, misalnya memberikan pesan sukses atau mengambil data terbaru
-        //                 console.log(response);
-        //             },
-        //             error: function(error) {
-        //                 // Handle error response, misalnya memberikan pesan error atau menangani kesalahan lainnya
-        //                 console.error(error);
-        //             }
-        //         });
-        //     });
-        // });
     </script>
 @endsection

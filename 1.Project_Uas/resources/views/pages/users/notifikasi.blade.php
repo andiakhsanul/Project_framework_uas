@@ -16,21 +16,21 @@
             <tr>
                 <th class="bg-primary text-white border-bottom">Tanggal Pengingat</th>
                 <th class="bg-primary text-white">Judul Catatan</th>
+                <th class="bg-primary text-white">Keterangan</th>
             </tr>
         </thead>
         <tbody>
-            {{-- @if ($pengingat->isEmpty())
-            <tr>
-                <td colspan="2" class="text-center">Belum ada Notifikasi yang masuk</td>
-            </tr>
-            @else --}}
-            @foreach($pengingat as $item)
+            @forelse($pengingat as $item)
             <tr>
                 <td class="bg-light text-dark border-bottom">{{ $item->TANGGAL_PENGINGAT }}</td>
-                <td class="bg-light text-dark">Yuk, selesaikan jadwalmu: {{ $item->jadwalHarian->kegiatan }}</td>
+                <td class="bg-light text-dark">{{ $item->JUDUL_PENGINGAT }}</td>
+                <td class="bg-light text-dark">{{ $item->KETERANGAN }}</td>
             </tr>
-            @endforeach
-            {{-- @endif --}}
+            @empty
+            <tr>
+                <td colspan="3" class="text-center">Belum ada Notifikasi yang masuk</td>
+            </tr>
+            @endforelse
         </tbody>
     </table>
 </div>
